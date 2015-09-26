@@ -1,86 +1,105 @@
+% !TeX encoding = GB2312
 \chapter{数值模型的建立和验证}
 数值模拟已经成为内燃机设计开发和优化过程中的一个重要研究手段。由于内燃机工作过程中缸内形成高温和高压的环境
 现有的测试方法很难直接将传感器安装在缸内进行测量，因此数值模拟在内燃机工作过程的研究上得到了广泛应用。
 \section{离子电流模型}
 点燃式发动机缸内混合气在火花点火、火核形成、火焰传播等燃烧过程中会产生大量的自由电子、正负离子和自由基等带电粒子，使燃气具有
-一定的电导性。如果在火花塞两级施加一个稳定的直偏电压，由于有外加电场存在，带电粒子发生定向迁移，从而形成了火花塞离子电流。
-
+一定的电导性。如果在火花塞两级施加一个稳定的直偏电压，由于有外加电场存在，带电粒子发生定向迁移，从而形成了火花塞离子电流。\par
 以下的离子电流模型是基于以下的几个假设而成立的：
 \begin{itemize}
 \item 火花塞间隙中的燃气完全燃烧
 \item 燃烧过程满足绝热过程
 \item 燃气满足热力学平衡
-\item 离子电流从火花塞一段直线到达另一端
+\item 火花塞间隙近似成圆柱模型
 \end{itemize}
 \subsection{缸内燃烧化学反应式}
 离子电流根据火焰的传播过程主要分为火焰前锋期和火焰后期。点火开始后，火焰前锋面从火花塞点火处开始燃烧，此时形成离子电流的火焰
 前锋期；当火焰前锋面离开火花塞两端时为离子电流的火焰后期。其中火焰前锋期的主要化学反应如下：
-\begin{eqnarray}
-CH+O & \stackrel{K_{1}}{\longrightarrow} & CHO^{+}+e^{-}\\
-CHO^{+}+H_{2}O & \stackrel{K_{2}}{\longrightarrow} & H_{3}O^{+}+CO\\
-CH+C_{2}H_{2} & \stackrel{}{\longrightarrow} & C_{3}H_{3}+e^{-}\\
-H_{3}O^{+}+e^{-} & \stackrel{K_{3}}{\longrightarrow} & H_{2}O+H
-\end{eqnarray}
+\begin{align}
+CH+O\stackrel{K_{1}}{\longrightarrow}CHO^{+}+e^{-}\\
+CHO^{+}+H_{2}O\stackrel{K_{2}}{\longrightarrow}H_{3}O^{+}+CO\\
+CH+C_{2}H_{2}\stackrel{}{\longrightarrow}C_{3}H_{3}+e^{-}\\
+H_{3}O^{+}+e^{-}\stackrel{K_{3}}{\longrightarrow}H_{2}O+H
+\end{align}
 其中$K_{i}(i=1,2,3)$表示反应常数，大小分别为：
-\begin{eqnarray}
-K_{1} & = & 5\times10^{-14}cm^{3}/s\\
-K_{2} & = & 7\times10^{-9}cm^{3}/s\\
-K_{3} & = & 2.3\times10^{-9}cm^{3}/s
-\end{eqnarray}
+\begin{align}
+K_{1}=5\times10^{-14}cm^{3}/s\\
+K_{2}=7\times10^{-9}cm^{3}/s\\
+K_{3}=2.3\times10^{-9}cm^{3}/s
+\end{align}
 由式可以看出，$K_{2}$大于$K_{1}$，也就是说火焰前锋中的离子大部分转化为$H_{3}O^{+}$，$K_{3}$
-虽然也较大，但是由于反应不剧烈，因此在后火焰区$H_{3}O^{+}$还会存在。
-
+虽然也较大，但是由于反应不剧烈，因此在后火焰区$H_{3}O^{+}$还会存在。\par
 在后火焰期，导致$H_{3}O^{+}$的快速放热反应基本完成，$H_{3}O^{+}$基本上消失。此时的燃气温度可能在$1500^{\circ}C$以上，高温下的热电离决定了离子电流的变化。
 焰后区内产生电离过程的主要物质是一氧化氮，研究表明\cite{reinmann1997local}，95\%的有效的自由电子是由于$NO$的热电离产生的。
-$NO$的电离能在燃气内主要物质中是最小的，这样，$NO$的电离率比其他物质的要大很多。大部分$NO$在$1000^{\circ}C$以上的温度根据Thermal或
+$NO$起主导作用的原因见表\cite{tab:nozx}，$NO$的电离能在燃气内主要物质中是最小的，
+\begin{table}[!h]
+	\centering
+	\caption{燃气中主要物质的电离参数}
+	\label{tab:nozx}
+	\begin{tabular}{c|c|c|c}
+		\hline
+		物质			  &    电离能$/eV$    &    浓度(在$15\circ CA ATDC$时)    &    电离率\\\hline
+		$NO$    		&   9.26405     	&$1.48 \times 10^{-2}$  &  $2.44 \times 10^{-8}$\\
+		$H_{2}O_{2}$    &   10.54000 		&$1.60 \times 10^{-6}$  & $1.73 \times 10^{-9}$\\
+		$CO$			&	14.01390		&$4.85 \times 10^{-2}$	& $1.30 \times 10^{-12}$\\
+		$CO_{2}$		&	13.77700		&$7.17 \times 10^{-2}$	& $2.10 \times 10^{-12}$\\
+		$H_{2}O$		&	12.61880		&$1.16 \times 10^{-1}$	& $2.33 \times 10^{-11}$\\
+		$N_{2}$			&	15.58080		&$6.99 \times 10^{-1}$	& $5.03 \times 10^{-14}$\\
+		$H_{2}$			&	15.42589		&$9.72 \times 10^{-3}$	& $6.87 \times 10^{-14}$\\\hline
+	\end{tabular}
+\end{table}
+这样，$NO$的电离率比其他物质的要大很多。大部分$NO$在$1000^{\circ}C$以上的温度根据Thermal或
 Zeldovich\cite{zeldovich1946oxidation}机理形成，其后火焰期的主要化学反应为：
-\begin{eqnarray}
-O+N_{2} & \longleftrightarrow & NO+N\\
-N+O_{2} & \longleftrightarrow & NO+O\\
-N+OH & \longleftrightarrow & NO+H
-\end{eqnarray}
+\begin{align}
+O+N_{2}\longleftrightarrow NO+N\\
+N+O_{2}\longleftrightarrow NO+O\\
+N+OH\longleftrightarrow NO+H
+\end{align}
 由于在高温高压的环境下$NO^{+}$浓度增加；当压力最大时，$NO^{+}$浓度达到最大，而对应的离子电流也达到峰值。
-所以火焰后期的离子电流和缸内压力有很明确的关系。
-
+所以火焰后期的离子电流和缸内压力有很明确的关系。\par
 总的来说，火焰前锋期的离子电流主要是化学电离产生的$H_{3}O^{+}$导致的；火焰后期的离子电流主要是$NO$热电离产生的电子导致的。
 \subsection{离子电流产生的基本原理}
 当火花塞两级加上偏置电压$U$时，火花塞间隙内会形成一个电场，如果此间燃气为等离子体状态，即存在带电粒子，那么这些带电粒子
 的运动为自身的无规则热运动和电场方向迁移运动的叠加。如果他们在$dt$时间内分别移动了$dx_{i}$和$dy_{i}$距离，并使电极
 上产生的面电荷密度的变化量为$q_{i}$和$q_{e}$，既有
-\begin{displaymath}
+\begin{equation}
 q=q_{i}+q_{e}=en_{i}dx_{i}+en_{e}dx_{e}
-\end{displaymath}
+\end{equation}
 式中：$n_{i}$、$n_{e}$是正负带电粒子的浓度；$e$为元电荷的电量即一个电子所带的电荷。那么，在离阴极$x$距离处的电流密度为
-\begin{displaymath}
+\begin{equation}
 j_{e}(x)=\frac{aq}{dt}=en_{i}v_{di}+en_{e}v_{de}
-\end{displaymath}
-式中$v_{di}$、$v_{de}$为正负带电粒子的迁移速度。
-
+\end{equation}
+式中$v_{di}$、$v_{de}$为正负带电粒子的迁移速度。\par
 对外电路而言，形成的火花塞离子电流为
-\begin{displaymath}
+\begin{equation}
 I_{on}=\int_{A} j_{e}dA=j_{e}\pi r^{2}=(en_{i}v_{di}+en_{e}v_{de})\pi r^{2}
-\end{displaymath}
+\end{equation}
 式中$r$为火花塞中心电极的半径。
 \subsection{带电粒子迁移速度的数学表达}
 \subsubsection{离子的迁移率$\mu_{i}$}
 Langevin根据气体动力学，分析推导出离子的迁移率为
-\begin{displaymath}
+\begin{equation}
 \mu_{i}=0.815\frac{e\overline{\lambda}}{M\ddot{v}}(\frac{M+M_{a}}{M})^{\frac{1}{2}}
-\end{displaymath}
-式中：$M$和$M_{a}$分别为离子和气体原子的质量；$\ddot{v}$为离子的均方根速度；$\overline{\lambda}$为离子在气体中的平均自由程。
-
-从上式可以看，$\mu_{i}$与电场强度$E$无关，这是由于上式推导是在$\frac{E}{p}$比较低的情况下进行的。实际上当$\frac{E}{p}$增大时，
+\end{equation}
+式中：$M$和$M_{a}$分别为离子和气体原子的质量；$\ddot{v}$为离子的均方根速度；$\overline{\lambda}$为离子在气体中的平均自由程。\par
+从上式可以看，$\mu_{i}$与电场强度$E$无关，这是由于上式推导是在$E/p$比较低的情况下进行的。实际上当$E/p$增大时，
 $\mu_{i}$将于电场强度$E$有关。可以用一个经验公式表达，即
-\begin{displaymath}
+\begin{equation}
 \mu_{i}=\mu_{0}[1+\alpha(\frac{E}{p})]^{\frac{1}{2}}
-\end{displaymath}
+\end{equation}
 式中：$\mu_{0}$为单位压强下离子的迁移率；$\alpha$为迁移常数，数值由实验测得；$E$为电场强度；$p$为气体压强。
 \subsubsection{电子的迁移率$\mu_{e}$}
-电子和离子的迁移运动由于本身的特性差异很大，如下表\ref{tb:lzdz}所示：
-\begin{table}[!hbp]
+电子和离子的迁移运动由于本身的特性差异很大，如下表\ref{tab:lzdz}所示。所以在处理电子迁移运动时，不能完全按照离子迁移运动的方式来
+处理，经过公式推导，可以得到电子的迁移率为：
+\begin{equation}
+\mu_{e}=\frac{1}{3}e\overline{\lambda}(\frac{2}{\kappa Tm})^{1/2}
+\end{equation}
+\par 在燃气等离子体中，带电粒子在电场作用下会产生扩散和迁移运动；其根本原因是它们之间交换着能量和变更着位置。带电粒子的扩散和迁移反映出火花塞
+离子电流的基本特性。
+\begin{table}[!h]
 	\centering
 	\caption{离子和电子的比较}
-	\label{tb:lzdz}
+	\label{tab:lzdz}
 	\begin{tabular}{c|c|c}
 	\hline
 	&电子&离子\\
@@ -93,5 +112,64 @@ $\mu_{i}$将于电场强度$E$有关。可以用一个经验公式表达，即
 	\hline
 	\end{tabular}
 \end{table}
+\subsection{火花塞离子电流的数学模型}
+\subsubsection{火焰前期离子电流模型}
+根据火焰前锋期的化学反应方程式可以得到各反应物和生成物的生成率。下式是$H_{3}O^{+}$在反应过程中满足的公式
+\begin{equation}
+\frac{d[H_{3}O^{+}]}{dt}=k_{2}[CHO^{+}][H_{2}O]-k_{3}[H_{3}O^{+}][e]
+\end{equation}
+当上式右边为零时，即为燃起的化学反应达到了平衡状态。同理，其他的反应物和生成物也满足类似的公式。于是可以得到：
+\begin{equation}
+%	[H_{3}O^{+}]=\frac{k_{2}[CHO^{+}][H_{2}O]}{k_{3}[e]}\\
+%	[CHO^{+}]=\frac{k_{1}[CH][O]}{k_{2}[H_{2}O]}
+	[H_{3}O^{+}]=[e]=(\frac{k_{1}[CH][O]}{k_{3}})^{1/2}
+\end{equation}
+\par $[CH]$和$[O]$的平衡浓度主要取决于被点燃燃油混合气的空燃比。Reinman等人\cite{reinmann1997local}的研究表明，在空燃比$\phi_{at}$大于0.8的稀混合气条件下，$[H_{3}O^{+}]$可表示为
+\begin{equation}
+	[H_{3}O^{+}]=\frac{c}{\sqrt{\phi_{at}}}
+\end{equation}
+式中$c$为常数。\par
+现在已经求得了离子浓度，火花塞离子电流可以得到为
+\begin{equation}
+	I_{on}=en_{e}\pi r^{2}E\mu
+\end{equation}
+式中：$n_{e}$为相应于离子浓度的自由电子浓度；$v_{d}$为迁移速度；$E$为电厂强度；$\mu$为迁移速率;$e$为单位电荷。这里将反应区看成一个简单的
+圆柱体，所以截面半径为$r$。
+\subsubsection{火焰后期的离子电流模型}
+火焰后期离子电流主要收到$NO$的热电离的影响，而不是化学电离。首先计算出燃烧产物中的$NO$的浓度，然后可利用沙哈(Saha)方程求解$NO$在特定条件下发生热电离生成$NO^{+}$和
+自由电子的电离率，并结合自由电子和离子的在外加电场作用下的迁移速率，就可以推导出火焰后期火花塞离子电流的数学模型。\par
+沙哈方程的公式如下：
+	\begin{equation}
+		\frac{\chi^{2}}{1-\chi^{2}}p=\frac{(2\pi m_{e})^{3/2}}{h^{3}}(\kappa T)^{5/2}exp(-\frac{E_{i}}{\kappa T})
+	\end{equation}
+其中：$m_{e}$为电子质量；$h$为普朗克质量；$\kappa$为波尔兹曼常数；$T$为气体的绝对温度；$E_{i}$为电离能；$p$为缸内压力；$\chi$为电离率。\par
+如果将火花塞间隙局部看成一个圆柱形的等离子体，那么有
+\begin{equation}
+	I_{on}=eN_{a}\chi \mu E\pi r^{2}
+\end{equation}
+其中$N_{a}$为离子浓度。
+离子浓度满足公式
+\begin{equation}
+	\frac{dN_{a}}{dt}=6\times10^{16}T_{eq}^{-1/2}exp[-\frac{69090}{T_{eq}}](O_{2})_{eq}^{1/2}(N_{2})_{eq}
+\end{equation}
+于是可以得到火花塞离子电流公式为
+\begin{equation}
+	I_{on}=e^{3/2}N_{a}\pi r^{2}(\frac{k}{2})^{1/4}\sqrt{\frac{3.2\times10^{-2}}{pm_{e}\overline{\lambda}}ET^{5/2}exp(-\frac{E_{i}}{\kappa T})}
+\end{equation}
+其中$p$为缸内压力；$E$为外加电场强度；$r$为火花塞中心电极半径；$\overline{\lambda}$为电子平均自由程；$T$为气体的绝对温度；$E_{i}$为电离能；$m_{e}$为电子质量；
+$\kappa$为波尔兹曼常数。
 \section{电容式离子电流电路结构的简化模型}
+\subsection{火花塞动态电路模型}
+\subsection{点火系统中的火花塞动态电路模型}
 \section{方法介绍}
+
+
+
+
+
+
+
+
+
+
+
