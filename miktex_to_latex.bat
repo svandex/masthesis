@@ -9,18 +9,27 @@ cd %1
 call:cleanup  
 
 :: Run pdflatex -&gt; bibtex -&gt; pdflatex -&gt; pdflatex  
-pdflatex %2.tex  
-gbk2uni %2.out
-bibtex  %2.tex  
+pdflatex %2.tex 
+gbk2uni %2.out 
+bibtex  %2.aux  
 :: If you are using multibib the following will run bibtex on all aux files  
 :: FOR /R . %%G IN (*.aux) DO bibtex %%G  
 pdflatex %2.tex  
+gbk2uni %2.out 
+pdflatex %2.tex
 
 :: Run Cleanup  
-call:cleanup  
+call:cleanup
+cd %1\data
+call:cleanup
+
+cd %1\chapter
+call:cleanup
+
+cd %1
 
 :: Open PDF  
-START "" "C:\Program Files (x86)\Foxit Software\Foxit Reader\FoxitReader.exe" %2.pdf -reuse-instance  
+START "" "C:\Program Files (x86)\Foxit Software\Foxit Reader\FoxitReader.exe" %2.pdf
 
 :: Cleanup Function  
 :cleanup  

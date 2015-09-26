@@ -609,7 +609,7 @@
        \vskip 0.5cm
       \hspace*{1.6cm}\parbox[t][8.7cm][t]{\textwidth}{\sanhao[1.5]
         \begin{center}
-        \begin{tabular}{lp{7cm}l}
+        \begin{tabular}{lp{8cm}l}
           School/Department :& \tongji@edepartment\\
           Discipline : & \tongji@emajorfirst\\
           Major : & \tongji@emajorsecond\\

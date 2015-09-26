@@ -1,0 +1,97 @@
+\chapter{数值模型的建立和验证}
+数值模拟已经成为内燃机设计开发和优化过程中的一个重要研究手段。由于内燃机工作过程中缸内形成高温和高压的环境
+现有的测试方法很难直接将传感器安装在缸内进行测量，因此数值模拟在内燃机工作过程的研究上得到了广泛应用。
+\section{离子电流模型}
+点燃式发动机缸内混合气在火花点火、火核形成、火焰传播等燃烧过程中会产生大量的自由电子、正负离子和自由基等带电粒子，使燃气具有
+一定的电导性。如果在火花塞两级施加一个稳定的直偏电压，由于有外加电场存在，带电粒子发生定向迁移，从而形成了火花塞离子电流。
+
+以下的离子电流模型是基于以下的几个假设而成立的：
+\begin{itemize}
+\item 火花塞间隙中的燃气完全燃烧
+\item 燃烧过程满足绝热过程
+\item 燃气满足热力学平衡
+\item 离子电流从火花塞一段直线到达另一端
+\end{itemize}
+\subsection{缸内燃烧化学反应式}
+离子电流根据火焰的传播过程主要分为火焰前锋期和火焰后期。点火开始后，火焰前锋面从火花塞点火处开始燃烧，此时形成离子电流的火焰
+前锋期；当火焰前锋面离开火花塞两端时为离子电流的火焰后期。其中火焰前锋期的主要化学反应如下：
+\begin{eqnarray}
+CH+O & \stackrel{K_{1}}{\longrightarrow} & CHO^{+}+e^{-}\\
+CHO^{+}+H_{2}O & \stackrel{K_{2}}{\longrightarrow} & H_{3}O^{+}+CO\\
+CH+C_{2}H_{2} & \stackrel{}{\longrightarrow} & C_{3}H_{3}+e^{-}\\
+H_{3}O^{+}+e^{-} & \stackrel{K_{3}}{\longrightarrow} & H_{2}O+H
+\end{eqnarray}
+其中$K_{i}(i=1,2,3)$表示反应常数，大小分别为：
+\begin{eqnarray}
+K_{1} & = & 5\times10^{-14}cm^{3}/s\\
+K_{2} & = & 7\times10^{-9}cm^{3}/s\\
+K_{3} & = & 2.3\times10^{-9}cm^{3}/s
+\end{eqnarray}
+由式可以看出，$K_{2}$大于$K_{1}$，也就是说火焰前锋中的离子大部分转化为$H_{3}O^{+}$，$K_{3}$
+虽然也较大，但是由于反应不剧烈，因此在后火焰区$H_{3}O^{+}$还会存在。
+
+在后火焰期，导致$H_{3}O^{+}$的快速放热反应基本完成，$H_{3}O^{+}$基本上消失。此时的燃气温度可能在$1500^{\circ}C$以上，高温下的热电离决定了离子电流的变化。
+焰后区内产生电离过程的主要物质是一氧化氮，研究表明\cite{reinmann1997local}，95\%的有效的自由电子是由于$NO$的热电离产生的。
+$NO$的电离能在燃气内主要物质中是最小的，这样，$NO$的电离率比其他物质的要大很多。大部分$NO$在$1000^{\circ}C$以上的温度根据Thermal或
+Zeldovich\cite{zeldovich1946oxidation}机理形成，其后火焰期的主要化学反应为：
+\begin{eqnarray}
+O+N_{2} & \longleftrightarrow & NO+N\\
+N+O_{2} & \longleftrightarrow & NO+O\\
+N+OH & \longleftrightarrow & NO+H
+\end{eqnarray}
+由于在高温高压的环境下$NO^{+}$浓度增加；当压力最大时，$NO^{+}$浓度达到最大，而对应的离子电流也达到峰值。
+所以火焰后期的离子电流和缸内压力有很明确的关系。
+
+总的来说，火焰前锋期的离子电流主要是化学电离产生的$H_{3}O^{+}$导致的；火焰后期的离子电流主要是$NO$热电离产生的电子导致的。
+\subsection{离子电流产生的基本原理}
+当火花塞两级加上偏置电压$U$时，火花塞间隙内会形成一个电场，如果此间燃气为等离子体状态，即存在带电粒子，那么这些带电粒子
+的运动为自身的无规则热运动和电场方向迁移运动的叠加。如果他们在$dt$时间内分别移动了$dx_{i}$和$dy_{i}$距离，并使电极
+上产生的面电荷密度的变化量为$q_{i}$和$q_{e}$，既有
+\begin{displaymath}
+q=q_{i}+q_{e}=en_{i}dx_{i}+en_{e}dx_{e}
+\end{displaymath}
+式中：$n_{i}$、$n_{e}$是正负带电粒子的浓度；$e$为元电荷的电量即一个电子所带的电荷。那么，在离阴极$x$距离处的电流密度为
+\begin{displaymath}
+j_{e}(x)=\frac{aq}{dt}=en_{i}v_{di}+en_{e}v_{de}
+\end{displaymath}
+式中$v_{di}$、$v_{de}$为正负带电粒子的迁移速度。
+
+对外电路而言，形成的火花塞离子电流为
+\begin{displaymath}
+I_{on}=\int_{A} j_{e}dA=j_{e}\pi r^{2}=(en_{i}v_{di}+en_{e}v_{de})\pi r^{2}
+\end{displaymath}
+式中$r$为火花塞中心电极的半径。
+\subsection{带电粒子迁移速度的数学表达}
+\subsubsection{离子的迁移率$\mu_{i}$}
+Langevin根据气体动力学，分析推导出离子的迁移率为
+\begin{displaymath}
+\mu_{i}=0.815\frac{e\overline{\lambda}}{M\ddot{v}}(\frac{M+M_{a}}{M})^{\frac{1}{2}}
+\end{displaymath}
+式中：$M$和$M_{a}$分别为离子和气体原子的质量；$\ddot{v}$为离子的均方根速度；$\overline{\lambda}$为离子在气体中的平均自由程。
+
+从上式可以看，$\mu_{i}$与电场强度$E$无关，这是由于上式推导是在$\frac{E}{p}$比较低的情况下进行的。实际上当$\frac{E}{p}$增大时，
+$\mu_{i}$将于电场强度$E$有关。可以用一个经验公式表达，即
+\begin{displaymath}
+\mu_{i}=\mu_{0}[1+\alpha(\frac{E}{p})]^{\frac{1}{2}}
+\end{displaymath}
+式中：$\mu_{0}$为单位压强下离子的迁移率；$\alpha$为迁移常数，数值由实验测得；$E$为电场强度；$p$为气体压强。
+\subsubsection{电子的迁移率$\mu_{e}$}
+电子和离子的迁移运动由于本身的特性差异很大，如下表\ref{tb:lzdz}所示：
+\begin{table}[!hbp]
+	\centering
+	\caption{离子和电子的比较}
+	\label{tb:lzdz}
+	\begin{tabular}{c|c|c}
+	\hline
+	&电子&离子\\
+	\hline
+	质量&小&大\\
+	平均热运动& 大&小\\
+	能量积累&可以&不可以\\
+	碰撞面积&小&大\\
+	刚体碰撞&否&是\\
+	\hline
+	\end{tabular}
+\end{table}
+\section{电容式离子电流电路结构的简化模型}
+\section{方法介绍}
