@@ -12,27 +12,51 @@
 \contentsline {subsection}{\numberline {2.1.1}缸内燃烧化学反应式}{6}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}离子电流产生的基本原理}{8}{subsection.2.1.2}
 \contentsline {subsection}{\numberline {2.1.3}带电粒子迁移速度的数学表达}{8}{subsection.2.1.3}
-\contentsline {subsubsection}{\numberline {2.1.3.1}离子的迁移率$\mu _{i}$}{8}{subsubsection.2.1.3.1}
-\contentsline {subsubsection}{\numberline {2.1.3.2}电子的迁移率$\mu _{e}$}{9}{subsubsection.2.1.3.2}
 \contentsline {subsection}{\numberline {2.1.4}火花塞离子电流的数学模型}{9}{subsection.2.1.4}
-\contentsline {subsubsection}{\numberline {2.1.4.1}火焰前期离子电流模型}{9}{subsubsection.2.1.4.1}
-\contentsline {subsubsection}{\numberline {2.1.4.2}火焰后期的离子电流模型}{10}{subsubsection.2.1.4.2}
 \contentsline {section}{\numberline {2.2}电容式离子电流电路结构的简化模型}{11}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}火花塞动态电路模型}{11}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}点火系统中的火花塞动态电路模型}{11}{subsection.2.2.2}
-\contentsline {section}{\numberline {2.3}方法介绍}{11}{section.2.3}
-\contentsline {chapter}{\numberline {第\nobreakspace {}3\nobreakspace {}章}引言}{12}{chapter.3}
-\contentsline {section}{\numberline {3.1}UNIX\nobreakspace {}历史}{13}{section.3.1}
-\contentsline {section}{\numberline {3.2}UNIX\nobreakspace {}家谱}{14}{section.3.2}
-\contentsline {section}{\numberline {3.3}表格样本}{14}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}基本表格}{14}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}复杂表格}{15}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}其它}{19}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}定理环境}{20}{section.3.4}
-\contentsline {section}{\numberline {3.5}参考文献}{23}{section.3.5}
-\contentsline {section}{\numberline {3.6}公式}{24}{section.3.6}
-\contentsline {section}{\numberline {3.7}破折号}{25}{section.3.7}
-\contentsline {chapter}{参考文献}{26}{section*.23}
-\contentsline {chapter}{致\hspace {1em}谢}{28}{section*.25}
-\contentsline {chapter}{个人简历、在学期间发表的学术论文与研究成果}{29}{section*.27}
+\contentsline {subsection}{\numberline {2.2.1}电容式离子电流电路结构}{11}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}电容式离子电流曲线}{11}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}火花塞动态电路模型}{12}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}火花塞间隙间的火花电阻}{13}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}离子电流检测电路等效电路模型}{13}{subsection.2.2.5}
+\contentsline {section}{\numberline {2.3}小波分析}{15}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}小波分析理论基础}{15}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}多分辨率分析}{16}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}小波函数分析步骤}{17}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}小波分析的特点}{18}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}常见的可离散小波}{18}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}离散小波之间的比较}{19}{subsection.2.3.6}
+\contentsline {section}{\numberline {2.4}高斯曲线拟合}{20}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}高斯函数}{20}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}离子电流拟合原理和方法}{21}{subsection.2.4.2}
+\contentsline {chapter}{\numberline {第\nobreakspace {}3\nobreakspace {}章}电容式离子电流检测电路实验台架}{22}{chapter.3}
+\contentsline {section}{\numberline {3.1}实验台架}{22}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}发动机}{23}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}发动机支架}{24}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}测功机}{25}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}发动机附件}{27}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}实验设备及器材}{30}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}缸压传感器}{30}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}光电编码器}{31}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}采集卡}{31}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}采集程序}{32}{subsection.3.2.4}
+\contentsline {chapter}{\numberline {第\nobreakspace {}4\nobreakspace {}章}离子电流干扰去除分析方法}{34}{chapter.4}
+\contentsline {section}{\numberline {4.1}电容式离子电流检测电路的局限性}{34}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}点火放电干扰的来源和性质}{35}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}断油情况下的点火干扰分析}{36}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}断火情况下的离子电流分析}{37}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}纯点火干扰的分析方法}{37}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}四种小波基函数对点火干扰进行小波分析}{39}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}db小波族的阶数选择和分析}{40}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}sym小波族的阶数选择和分析}{40}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}四种小波对去除点火干扰分析的比较}{41}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}高斯曲线拟合估计离子电流特征参数}{42}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}双高斯曲线拟合}{42}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}三高斯曲线拟合}{42}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {第\nobreakspace {}5\nobreakspace {}章}离子电流工况拓展的预测与验证}{43}{chapter.5}
+\contentsline {section}{\numberline {5.1}离子电流淹没情况下对缸压的预测}{43}{section.5.1}
+\contentsline {section}{\numberline {5.2}离子电流淹没情况下对空燃比的预测}{43}{section.5.2}
+\contentsline {chapter}{参考文献}{44}{section*.60}
+\contentsline {chapter}{致\hspace {1em}谢}{46}{section*.62}
+\contentsline {chapter}{个人简历、在学期间发表的学术论文与研究成果}{47}{section*.64}
 \contentsfinish 
