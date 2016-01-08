@@ -51,8 +51,8 @@
 \contentsline {subsection}{\numberline {4.2.2}sym小波族的阶数选择和分析}{40}{subsection.4.2.2}
 \contentsline {subsection}{\numberline {4.2.3}四种小波对去除点火干扰分析的比较}{41}{subsection.4.2.3}
 \contentsline {section}{\numberline {4.3}高斯曲线拟合估计离子电流特征参数}{42}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}双高斯曲线拟合}{42}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}三高斯曲线拟合}{42}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.1}高斯曲线拟合方法介绍}{42}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}双高斯曲线拟合}{42}{subsection.4.3.2}
 \contentsline {chapter}{\numberline {第\nobreakspace {}5\nobreakspace {}章}离子电流工况拓展的预测与验证}{43}{chapter.5}
 \contentsline {section}{\numberline {5.1}离子电流淹没情况下对缸压的预测}{43}{section.5.1}
 \contentsline {section}{\numberline {5.2}离子电流淹没情况下对空燃比的预测}{43}{section.5.2}
