@@ -3,7 +3,7 @@
 %%% TeX-master: t
 %%% End:
 
-\documentclass[master]{tongjithesis}
+\documentclass[utf,master]{tongjithesis}
 % \documentclass[%
 %   master|doctor, % mandatory option
 %   xetex|pdftex|dvips|dvipdfm, % optional
@@ -11,40 +11,40 @@
 %   openany|openright,
 %   arialtoc,arialtitle]{tongjithesis}
 
-% ËùÓĞÆäËü¿ÉÄÜÓÃµ½µÄ°ü¶¼Í³Ò»·Åµ½ÕâÀïÁË£¬¿ÉÒÔ¸ù¾İ×Ô¼ºµÄÊµ¼ÊÌí¼Ó»òÕßÉ¾³ı¡£
+% æ‰€æœ‰å…¶å®ƒå¯èƒ½ç”¨åˆ°çš„åŒ…éƒ½ç»Ÿä¸€æ”¾åˆ°è¿™é‡Œäº†ï¼Œå¯ä»¥æ ¹æ®è‡ªå·±çš„å®é™…æ·»åŠ æˆ–è€…åˆ é™¤ã€‚
 \usepackage{tongjiutils}
 \usepackage[top=3.8cm, bottom=3.8cm, left=3.2cm, right=3.2cm]{geometry}
 
-% Äã¿ÉÒÔÔÚÕâÀïĞŞ¸ÄÅäÖÃÎÄ¼şÖĞµÄ¶¨Òå£¬µ¼ÑÔÇø¿ÉÒÔÊ¹ÓÃÖĞÎÄ¡£
-\def\myname{Í¬¼ÃÈË}
+% ä½ å¯ä»¥åœ¨è¿™é‡Œä¿®æ”¹é…ç½®æ–‡ä»¶ä¸­çš„å®šä¹‰ï¼Œå¯¼è¨€åŒºå¯ä»¥ä½¿ç”¨ä¸­æ–‡ã€‚
+\def\myname{é‚±å›è¯š}
 
 \begin{document}
 
-% ¶¨ÒåËùÓĞµÄepsÎÄ¼şÔÚ figures ×ÓÄ¿Â¼ÏÂ
+% å®šä¹‰æ‰€æœ‰çš„epsæ–‡ä»¶åœ¨ figures å­ç›®å½•ä¸‹
 \graphicspath{{D:/mthall/}{figures/}}
 
-%%% ·âÃæ²¿·Ö
+%%% å°é¢éƒ¨åˆ†
 \frontmatter
 \input{data/cover}
 \makecover
 
 
-% Ä¿Â¼
+% ç›®å½•
 
 \tableofcontents
 
-% ·ûºÅ¶ÔÕÕ±í
+% ç¬¦å·å¯¹ç…§è¡¨
 \input{data/denotation}
 
-%%% ÒÔÏÂË÷Òı°´ĞèÒªÑ¡Ôñ
-% ²åÍ¼Ë÷Òı
+%%% ä»¥ä¸‹ç´¢å¼•æŒ‰éœ€è¦é€‰æ‹©
+% æ’å›¾ç´¢å¼•
 %\listoffigures
-% ±í¸ñË÷Òı
+% è¡¨æ ¼ç´¢å¼•f
 %\listoftables
-% ¹«Ê½Ë÷Òı
+% å…¬å¼ç´¢å¼•
 %\listofequations
 
-%%% ÕıÎÄ
+%%% æ­£æ–‡
 \mainmatter
 \include{chapter/intro_chapter}
 \include{chapter/model_chapter}
@@ -52,23 +52,23 @@
 \include{chapter/ion_chapter}
 \include{chapter/validation_chapter}
 
-%%% ÆäËü²¿·Ö
+%%% å…¶å®ƒéƒ¨åˆ†
 \backmatter
 
 \makeatother
 
-% ²Î¿¼ÎÄÏ×
+% å‚è€ƒæ–‡çŒ®
 \bibliographystyle{tongjibib}
 \bibliography{ref/ref_thesis}
 
-% ÖÂĞ»
-\include{data/ack}
+% è‡´è°¢
+%\include{data/ack}
 
-% ¸½Â¼
+% é™„å½•
 % \begin{appendix}
 %\input{data/appendix01}
 %\end{appendix}
 
-% ¸öÈË¼òÀú
-\include{data/resume}
+% ä¸ªäººç®€å†
+%\include{data/resume}
 \end{document}
