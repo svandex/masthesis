@@ -9,12 +9,12 @@ cd %1
 call:cleanup  
 
 :: Run pdflatex -&gt; bibtex -&gt; pdflatex -&gt; pdflatex  
-pdflatex %2.tex 
+xelatex %2.tex 
 gbk2uni %2.out 
 bibtex  %2.aux  
 :: If you are using multibib the following will run bibtex on all aux files  
 :: FOR /R . %%G IN (*.aux) DO bibtex %%G  
-pdflatex %2.tex  
+xelatex %2.tex  
 gbk2uni %2.out 
 pdflatex %2.tex
 
