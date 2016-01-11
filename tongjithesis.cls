@@ -78,12 +78,13 @@
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{txfonts}
 \RequirePackage{graphicx}
-\RequirePackage[config]{subfig}
+\RequirePackage{subfig}
 \RequirePackage{indentfirst}
 \RequirePackage[neverdecrease]{paralist}
 \iftongji@xetex
   \RequirePackage{xunicode,xltxtra}
-  \RequirePackage[CJKnumber,CJKtextspaces,CJKmathspaces]{xeCJK}
+  \RequirePackage[CJKspace,CJKmath]{xeCJK}
+  \RequirePackage{CJKnumb}
   \punctstyle{kaiming}
   % todo: minor fix of CJKnumb
   \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
@@ -95,8 +96,8 @@
   \setCJKfamilyfont{hei}{Adobe Heiti Std}
   \setCJKfamilyfont{fs}{Adobe Fangsong Std}
   \setCJKfamilyfont{kai}{Adobe Kaiti Std}
-  \setCJKfamilyfont{li}{Adobe Kaiti Std} % todo: ÓÃÁ¥Êé×ÖÌå´úÌæ
-  \setCJKfamilyfont{you}{Adobe Kaiti Std} % todo: ÓÃÓ×Ô²×ÖÌå´úÌæ
+  \setCJKfamilyfont{li}{Adobe Kaiti Std} % todo: ç”¨éš¶ä¹¦å­—ä½“ä»£æ›¿
+  \setCJKfamilyfont{you}{Adobe Kaiti Std} % todo: ç”¨å¹¼åœ†å­—ä½“ä»£æ›¿
 
   \setmainfont{Times New Roman}
   \setsansfont{Arial}
@@ -104,7 +105,7 @@
 \else
   \RequirePackage{CJK}
   \RequirePackage{CJKnumb}
-  \iftongji@GBK % CJKpunct ÔÚ UTF ÏÂ¹¤×÷µÄ²»ºÃ¡£
+  \iftongji@GBK % CJKpunct åœ¨ UTF ä¸‹å·¥ä½œçš„ä¸å¥½ã€‚
     \IfFileExists{CJKpunct.sty}%
                  {\RequirePackage{CJKpunct}}%
                  {\ClassWarning{tongjithesis}{no CJKpunct.sty availiable!}}
@@ -114,11 +115,6 @@
     \IfFileExists{arial.sty}%
                  {\RequirePackage{arial}}%
                  {\ClassWarning{tongjithesis}{no arial.sty availiable!}}
-  \fi
-\fi
-\iftongji@dvips\else
-  \iftongji@xetex\else
-    \RequirePackage{ccmap}
   \fi
 \fi
 \RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}
@@ -142,13 +138,20 @@
   breaklinks=true,
   colorlinks=false,
   plainpages=false,
-  pdfpagelabels,
+  %pdfpagelabels,
   pdfborder=0 0 0}
 \iftongji@dvips
   \RequirePackage{breakurl}
 \fi
 \urlstyle{same}
 \RequirePackage{hypernat}
+\RequirePackage{caption}
+\RequirePackage{topsection}
+%\RequirePackage{titletoc}
+%\RequirePackage{titlesec}
+%\RequirePackage{parskip}
+%\RequirePackage{tocvsec2}
+
 \renewcommand\frontmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
   \@mainmatterfalse
@@ -162,17 +165,17 @@
 \renewcommand\backmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
   \@mainmattertrue}
-\newcommand{\song}{\CJKfamily{song}}    % ËÎÌå
+\newcommand{\song}{\CJKfamily{song}}    % å®‹ä½“
 \def\songti{\song}
-\newcommand{\fs}{\CJKfamily{fs}}        % ·ÂËÎÌå
+\newcommand{\fs}{\CJKfamily{fs}}        % ä»¿å®‹ä½“
 \def\fangsong{\fs}
-\newcommand{\kai}{\CJKfamily{kai}}      % ¿¬Ìå
+\newcommand{\kai}{\CJKfamily{kai}}      % æ¥·ä½“
 \def\kaishu{\kai}
-\newcommand{\hei}{\CJKfamily{hei}}      % ºÚÌå
+\newcommand{\hei}{\CJKfamily{hei}}      % é»‘ä½“
 \def\heiti{\hei}
-\newcommand{\li}{\CJKfamily{li}}        % Á¥Êé
+\newcommand{\li}{\CJKfamily{li}}        % éš¶ä¹¦
 \def\lishu{\li}
-\newcommand{\you}{\CJKfamily{you}}      % Ó×Ô²
+\newcommand{\you}{\CJKfamily{you}}      % å¹¼åœ†
 \def\youyuan{\you}
 \newlength\tongji@linespace
 \newcommand{\tongji@choosefont}[2]{%
@@ -238,16 +241,18 @@
   \let\@evenhead\@empty%
   \def\@oddfoot{\hfil\wuhao\thepage\hfil}%
   \let\@evenfoot=\@oddfoot}
+% tongji@headings
 \def\ps@tongji@headings{%
   \def\@oddhead{\vbox to\headheight{%
       \hb@xt@\textwidth{\hfill\wuhao\song\leftmark\hfill}%
-      \vskip2pt\hbox{\vrule width\textwidth height0.4pt depth0pt}}}
+      \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
   \def\@evenhead{\vbox to\headheight{%
       \hb@xt@\textwidth{\wuhao\song%
       \hfill\leftmark\hfill}%
-      \vskip2pt\hbox{\vrule width\textwidth height0.4pt depth0pt}}}
+      \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
   \def\@oddfoot{\hfil\wuhao\thepage\hfil}
   \let\@evenfoot=\@oddfoot}
+% chaptermark
 \renewcommand{\chaptermark}[1]{\@mkboth{\@chapapp\  ~~#1}{}}
 \newlength\CJK@twochars
 \ifxetex
@@ -271,22 +276,9 @@
   \let\endenumerate\endcompactenum
   \let\description\compactdesc
   \let\enddescription\endcompactdesc}
-\newcommand*\MakePerPage[2][\@ne]{%
-  \expandafter\def\csname c@pchk@#2\endcsname{\c@pchk@{#2}{#1}}%
-  \newcounter{pcabs@#2}%
-  \@addtoreset{pchk@#2}{#2}}
-\def\new@pagectr#1{\@newl@bel{pchk@#1}}
-\def\c@pchk@#1#2{\z@=\z@
-  \begingroup
-  \expandafter\let\expandafter\next\csname pchk@#1@\arabic{pcabs@#1}\endcsname
-  \addtocounter{pcabs@#1}\@ne
-  \expandafter\ifx\csname pchk@#1@\arabic{pcabs@#1}\endcsname\next
-  \else \setcounter{#1}{#2}\fi
-  \protected@edef\next{%
-    \string\new@pagectr{#1}{\arabic{pcabs@#1}}{\noexpand\thepage}}%
-  \protected@write\@auxout{}{\next}%
-  \endgroup\global\z@}
-\MakePerPage{footnote}
+%where error is
+
+%enderror
 \def\tongji@textcircled#1{%
   \ifnum \value{#1} <10 \textcircled{\xiaoliu\arabic{#1}}
   \else\ifnum \value{#1} <100 \textcircled{\qihao\arabic{#1}}\fi
@@ -377,18 +369,21 @@
   \fi
   \chaptermark{#1}%
   \@makechapterhead{#2}}
+%makechapterhead
 \def\@makechapterhead#1{%
   \vspace*{20bp}%
   {\parindent \z@ \centering
     \hei\bfseries\csname tongji@title@font\endcsname\sanhao[1]
     \ifnum \c@secnumdepth >\m@ne
-      \@chapapp\hskip1em
+      \@chapapp\hskip 1em
     \fi
     #1\par\nobreak
     \vskip 24bp}}
+%@schapter
 \def\@schapter#1{%
   \@makeschapterhead{#1}
   \@afterheading}
+%@makeschapterhead
 \def\@makeschapterhead#1{%
   \vspace*{20bp}%
   {\parindent \z@ \centering
@@ -399,7 +394,9 @@
    \interlinepenalty\@M
    #1\par\nobreak
    \vskip 24bp}}
+%
 \newcounter{tongji@bookmark}
+%tongji@chapter
 \def\tongji@chapter*{%
   \@ifnextchar [ % ]
     {\tongji@@chapter}
@@ -450,9 +447,9 @@
 \iftongji@arialtoc
   \def\tongji@toc@font{\sffamily}
 \fi
-\def\@pnumwidth{2em} % Õâ¸ö²ÎÊıÃ»ÓÃÁË
+\def\@pnumwidth{2em} % è¿™ä¸ªå‚æ•°æ²¡ç”¨äº†
 \def\@tocrmarg{2em}
-\def\@dotsep{1} % Ä¿Â¼µã¼äµÄ¾àÀë
+\def\@dotsep{1} % ç›®å½•ç‚¹é—´çš„è·ç¦»
 \def\@dottedtocline#1#2#3#4#5{%
   \ifnum #1>\c@tocdepth \else
     \vskip \z@ \@plus.2\p@
@@ -609,7 +606,7 @@
        \vskip 0.5cm
       \hspace*{1.6cm}\parbox[t][8.7cm][t]{\textwidth}{\sanhao[1.5]
         \begin{center}
-        \begin{tabular}{lp{8cm}l}
+        \begin{tabular}{lp{7cm}l}
           School/Department :& \tongji@edepartment\\
           Discipline : & \tongji@emajorfirst\\
           Major : & \tongji@emajorsecond\\
@@ -686,15 +683,15 @@
   \noindent\begin{list}{}%
     {\vskip-30bp\xiaosi[1.6]
      \renewcommand\makelabel[1]{##1\hfil}
-     \setlength{\labelwidth}{#1} % ±êÇ©ºĞ×Ó¿í¶È
-     \setlength{\labelsep}{0.5cm} % ±êÇ©ÓëÁĞ±íÎÄ±¾¾àÀë
-     \setlength{\itemindent}{0cm} % ±êÇ©Ëõ½øÁ¿
-     \setlength{\leftmargin}{\labelwidth+\labelsep} % ×ó±ß½ç
+     \setlength{\labelwidth}{#1} % æ ‡ç­¾ç›’å­å®½åº¦
+     \setlength{\labelsep}{0.5cm} % æ ‡ç­¾ä¸åˆ—è¡¨æ–‡æœ¬è·ç¦»
+     \setlength{\itemindent}{0cm} % æ ‡ç­¾ç¼©è¿›é‡
+     \setlength{\leftmargin}{\labelwidth+\labelsep} % å·¦è¾¹ç•Œ
      \setlength{\rightmargin}{0cm}
-     \setlength{\parsep}{0cm} % ¶ÎÂä¼ä¾à
-     \setlength{\itemsep}{0cm} % ±êÇ©¼ä¾à
-    \setlength{\listparindent}{0cm} % ¶ÎÂäËõ½øÁ¿
-    \setlength{\topsep}{0pt} % ±êÇ©ÓëÉÏÎÄµÄ¼ä¾à
+     \setlength{\parsep}{0cm} % æ®µè½é—´è·
+     \setlength{\itemsep}{0cm} % æ ‡ç­¾é—´è·
+    \setlength{\listparindent}{0cm} % æ®µè½ç¼©è¿›é‡
+    \setlength{\topsep}{0pt} % æ ‡ç­¾ä¸ä¸Šæ–‡çš„é—´è·
    }}{\end{list}}
 \newenvironment{ack}{%
      % \cleardoublepage
