@@ -3,5 +3,8 @@
 *.out
 *.pdf
 *.toc
-*.pdf
-*.toc
+*.thm
+*.out
+*.bbl
+*.ps1
+*.blg
