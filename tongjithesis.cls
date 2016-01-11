@@ -75,10 +75,11 @@
 \ifpdf\tongji@checkoption{pdflatex}{dvips,dvipdfm,xetex}\tongji@pdftextrue\fi % force the option to be true
 \ifxetex\tongji@checkoption{xelatex}{dvips,dvipdfm,pdftex}\tongji@xetextrue\fi
 \RequirePackage{ifthen,calc}
-\RequirePackage{amsmath,amssymb}
+\RequirePackage{amsmath,amssymb,unicode-math}
 \RequirePackage{txfonts}
 \RequirePackage{graphicx}
 \RequirePackage{subfig}
+\RequirePackage{minipage}
 \RequirePackage{indentfirst}
 \RequirePackage[neverdecrease]{paralist}
 \iftongji@xetex
@@ -147,10 +148,10 @@
 \RequirePackage{hypernat}
 \RequirePackage{caption}
 \RequirePackage{topsection}
-%\RequirePackage{titletoc}
-%\RequirePackage{titlesec}
-%\RequirePackage{parskip}
-%\RequirePackage{tocvsec2}
+\RequirePackage{titletoc}
+\RequirePackage{titlesec}
+\RequirePackage{parskip}
+\RequirePackage{tocvsec2}
 
 \renewcommand\frontmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
