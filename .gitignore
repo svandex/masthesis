@@ -1,9 +1,7 @@
 *.aux
 *.log
 *.out
-*.pdf
 *.toc
-*.thm
 *.out
 *.bbl
 *.ps1
