@@ -79,7 +79,7 @@
 \RequirePackage{txfonts}
 \RequirePackage{graphicx}
 \RequirePackage{subfig}
-\RequirePackage{minipage}
+%\RequirePackage{minipage}
 \RequirePackage{indentfirst}
 \RequirePackage[neverdecrease]{paralist}
 \iftongji@xetex
@@ -123,7 +123,7 @@
 \RequirePackage{longtable}
 \RequirePackage{booktabs}
 \RequirePackage[numbers,super,sort&compress]{natbib}
-\RequirePackage{hyperref}
+\RequirePackage[unicode]{hyperref}
 \ifxetex
   \hypersetup{%
     CJKbookmarks=true}
@@ -146,12 +146,13 @@
 \fi
 \urlstyle{same}
 \RequirePackage{hypernat}
-\RequirePackage{caption}
-\RequirePackage{topsection}
-\RequirePackage{titletoc}
-\RequirePackage{titlesec}
 \RequirePackage{parskip}
-\RequirePackage{tocvsec2}
+%\RequirePackage{caption}
+%\RequirePackage{multirow}
+%\RequirePackage{topsection}
+%\RequirePackage{titletoc}
+%\RequirePackage{titlesec}
+%\RequirePackage{tocvsec2}
 
 \renewcommand\frontmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
