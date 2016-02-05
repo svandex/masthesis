@@ -670,13 +670,13 @@
   \pagestyle{tongji@headings}  
   \pagenumbering{Roman}
   \tongji@cabstract
-  \vskip12bp
+  \vskip 12bp
   \setbox0=\hbox{{\hei\tongji@ckeywords@title}}
   \noindent\hangindent\wd0\hangafter1
     \box0\tongji@ckeywords
   \tongji@chapter*[]{\eabstractname} % no tocline
   \tongji@eabstract
-  \vskip12bp
+  \vskip 12bp
   \setbox0=\hbox{\textbf{Key words:\enskip}}
   \noindent\hangindent\wd0\hangafter1
     \box0\tongji@ekeywords}
@@ -747,6 +747,7 @@
     \widowpenalty4000%
     \interlinepenalty4000%
     \sfcode`\.\@m}
+	
    {\def\@noitemerr
      {\@latex@warning{Empty `thebibliography' environment}}%
     \endlist\frenchspacing}
