@@ -1,0 +1,115 @@
+\chapter{部分代码文件}
+\section{离子电流双干扰确定算法}
+\label{cd:dintf}
+\lstset{
+	basicstyle=\ttfamily\scriptsize,
+	breaklines=true}
+	
+\begin{lstlisting}[frame=single,language=matlab]
+function [fA,fB]=fluccalc(y,dA,dB)
+% y	data of ion of a single cycle
+% dA 	the offset of interfere A
+% db 	the offset of interfere B
+% fA 	struct for start point and stop point of interfere A
+% fB 	struct for start point and stop point of interfere B
+switch nargin
+    case 1
+        dA = 0; dB = 0;
+    case 2
+        dB = 0;
+    otherwise
+end
+
+y_a = dgtflt(diff(y));
+
+for num = 1:length(y_a)
+    if y_a(num)>0.1
+        flucAStart = num+dA;
+        break;
+    end
+end
+
+for num = (flucAStart+200):-1:flucAStart
+    if y_a(num)>0.1
+        flucAEnd = num;
+        break;
+    end
+end
+
+for num = (flucAStart+200):length(y)
+    if y_a(num) >0.1
+        flucBStart = num+dB;
+        break;
+    end
+end
+
+flucBEnd = flucBStart+200;
+
+fA = struct('fAs',flucAStart,'fAe',flucAEnd);
+fB = struct('fBs',flucBStart,'fBe',flucBEnd);
+\end{lstlisting}
+\section{双高斯曲线拟合算法}
+\label{cd:dgauss}
+\lstset{
+	basicstyle=\ttfamily\scriptsize,
+	breaklines=true}
+	
+\begin{lstlisting}[frame=single,language=matlab]
+function [lambda,A,peakHeights] = iongaussfit(y)
+	% y         ion data sequence from 270 to 450 degree.
+	% lambda    a matrix of 2x2, each row is responsive to a gaussian curve
+	global numpeaks ns pos1 pos2;
+	ns = 1:length(y);
+	numpeaks = 2;
+	[~,tempos] = max(y);
+
+	%gaussian parameter initial setting
+	pos1 = round(length(y)/2); % pos1 = 360 dgr
+	pos2 = tempos; % pos2 = the maximum value of ion
+	slambda = [pos1,1200,pos2,100];
+
+	options = optimset('TolX',.00001,'Display','iter' );
+	lambda = fminsearch(@fitgaussian,slambda,options,y);
+
+	A(:,1) = gaussian(ns,lambda(1),lambda(2));
+	A(:,2) = gaussian(ns,lambda(3),lambda(4));
+
+	peakHeights = abs(A\y);
+
+	test(A,peakHeights,y); %plot model and each gaussian curve
+end
+
+function err = fitgaussian(lambda,y)
+	global ns;
+	A(:,1) = gaussian(ns,lambda(1),lambda(2));
+	A(:,2) = gaussian(ns,lambda(3),lambda(4));
+
+	peakheights = abs(A\y);
+	z = A*peakheights;
+	err = norm(z-y);
+end
+
+function g = gaussian(x,pos,wid)
+	g = exp(-((x-pos)./(0.6005615.*wid)) .^2);
+end
+
+function test(A,peakHeights,y)
+	% TEST SCRIPTS
+	global numpeaks;
+	mmodel = A*peakHeights;
+	rge = (1:length(y))*180/length(y)+270;
+	
+	figure('unit','centimeters','position',[2 2 14.6*0.8 8]);hold on;
+	plot(rge,mmodel,'r');plot(rge,dgtflt(y,4),'b');
+	
+	for j=1:numpeaks;
+		plot(rge,peakHeights(j)*A(:,j));
+	end
+	
+	legend('sim model','real','gauss1','gauss2');
+	xlabel('crank angle(CA)');ylabel('ion voltage(V)');
+	ylim([0 1]);xlim([270 450]);
+	set(gca,'fontsize',8,'xtick',270:30:450);
+
+end
+\end{lstlisting}

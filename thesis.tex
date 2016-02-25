@@ -25,16 +25,16 @@
 
 %%% 封面部分
 \frontmatter
-\input{data/cover}
-\makecover
+%\input{data/cover}
+%\makecover
 
 
 % 目录
 
-\tableofcontents
+%\tableofcontents
 
 % 符号对照表
-\input{data/denotation}
+%\input{data/denotation}
 
 %%% 以下索引按需要选择
 % 插图索引
@@ -46,12 +46,12 @@
 
 %%% 正文
 \mainmatter
-\include{chapter/intro_chapter}
-\include{chapter/model_chapter}
-\include{chapter/platformer_chapter}
-\include{chapter/ion_chapter}
-\include{chapter/validation_chapter}
-\include{chapter/conclusion_chapter}
+\include{chapter/1_intro_chapter}
+\include{chapter/2_model_chapter}
+\include{chapter/3_platformer_chapter}
+%\include{chapter/4_ion_chapter}
+%\include{chapter/5_validation_chapter}
+%\include{chapter/6_conclusion_chapter}
 
 %%% 其它部分
 \backmatter
@@ -63,13 +63,13 @@
 \bibliography{ref/ref_thesis}
 
 % 致谢
-\include{data/ack}
+%\include{data/ack}
 
 % 附录
 %\begin{appendix}
-%\input{data/appendix01}
+%\input{chapter/myappendix}
 %\end{appendix}
 
 % 个人简历
-\include{data/resume}
+%\include{data/resume}
 \end{document}

@@ -75,16 +75,15 @@
 \ifpdf\tongji@checkoption{pdflatex}{dvips,dvipdfm,xetex}\tongji@pdftextrue\fi % force the option to be true
 \ifxetex\tongji@checkoption{xelatex}{dvips,dvipdfm,pdftex}\tongji@xetextrue\fi
 \RequirePackage{ifthen,calc}
-\RequirePackage{amsmath,amssymb,unicode-math}
+\RequirePackage{amsmath,thmtools,amssymb}
 \RequirePackage{txfonts}
 \RequirePackage{graphicx}
-\RequirePackage{subfig}
-%\RequirePackage{minipage}
+\RequirePackage[config]{subfig}
 \RequirePackage{indentfirst}
 \RequirePackage[neverdecrease]{paralist}
 \iftongji@xetex
   \RequirePackage{xunicode,xltxtra}
-  \RequirePackage[CJKspace,CJKmath]{xeCJK}
+  \RequirePackage[CJKnumber]{xeCJK}
   \RequirePackage{CJKnumb}
   \punctstyle{kaiming}
   % todo: minor fix of CJKnumb
@@ -97,7 +96,7 @@
   \setCJKfamilyfont{hei}{Adobe Heiti Std}
   \setCJKfamilyfont{fs}{Adobe Fangsong Std}
   \setCJKfamilyfont{kai}{Adobe Kaiti Std}
-  \setCJKfamilyfont{li}{Adobe Kaiti Std} % todo: 用隶书字体代替
+%  \setCJKfamilyfont{li}{STBaoli-SC-Regular}
   \setCJKfamilyfont{you}{Adobe Kaiti Std} % todo: 用幼圆字体代替
 
   \setmainfont{Times New Roman}
@@ -123,7 +122,7 @@
 \RequirePackage{longtable}
 \RequirePackage{booktabs}
 \RequirePackage[numbers,super,sort&compress]{natbib}
-\RequirePackage[unicode]{hyperref}
+\RequirePackage{hyperref}
 \ifxetex
   \hypersetup{%
     CJKbookmarks=true}
@@ -146,13 +145,6 @@
 \fi
 \urlstyle{same}
 \RequirePackage{hypernat}
-\RequirePackage{parskip}
-%\RequirePackage{caption}
-%\RequirePackage{multirow}
-%\RequirePackage{topsection}
-%\RequirePackage{titletoc}
-%\RequirePackage{titlesec}
-%\RequirePackage{tocvsec2}
 
 \renewcommand\frontmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
@@ -175,7 +167,7 @@
 \def\kaishu{\kai}
 \newcommand{\hei}{\CJKfamily{hei}}      % 黑体
 \def\heiti{\hei}
-\newcommand{\li}{\CJKfamily{li}}        % 隶书
+\newcommand{\li}{\CJKfamily{LiSu}}        % 隶书
 \def\lishu{\li}
 \newcommand{\you}{\CJKfamily{you}}      % 幼圆
 \def\youyuan{\you}
@@ -246,11 +238,11 @@
 % tongji@headings
 \def\ps@tongji@headings{%
   \def\@oddhead{\vbox to\headheight{%
-      \hb@xt@\textwidth{\hfill\wuhao\song\leftmark\hfill}%
+      \hb@xt@\textwidth{\hfill\wuhao\song\leftmark}%
       \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
   \def\@evenhead{\vbox to\headheight{%
       \hb@xt@\textwidth{\wuhao\song%
-      \hfill\leftmark\hfill}%
+      同济大学硕士学位论文\hfill}%
       \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
   \def\@oddfoot{\hfil\wuhao\thepage\hfil}
   \let\@evenfoot=\@oddfoot}
@@ -258,7 +250,7 @@
 \renewcommand{\chaptermark}[1]{\@mkboth{\@chapapp\  ~~#1}{}}
 \newlength\CJK@twochars
 \ifxetex
-  \def\CJK@spaceChar{\Unicode{48}{7}}
+  \def\CJK@spaceChar{\hspace{1em}}
 \else
   \iftongji@UTF
     \def\CJK@spaceChar{\CJKchar{"080}{"080}}
@@ -278,9 +270,6 @@
   \let\endenumerate\endcompactenum
   \let\description\compactdesc
   \let\enddescription\endcompactdesc}
-%where error is
-
-%enderror
 \def\tongji@textcircled#1{%
   \ifnum \value{#1} <10 \textcircled{\xiaoliu\arabic{#1}}
   \else\ifnum \value{#1} <100 \textcircled{\qihao\arabic{#1}}\fi
@@ -504,6 +493,9 @@
 \tongji@define@term{cmajorsecond}
 \def\csubject{\cmajorsecond} % for compatibility
 
+\tongji@define@term{cstnr}
+\tongji@define@term{degtype}
+\tongji@define@term{edispline}
 \tongji@define@term{cauthor}
 \tongji@define@term{csupervisor}
 \tongji@define@term{cassosupervisor}
@@ -552,12 +544,14 @@
     \vspace*{0.4cm}
     \parbox[b][1.8cm][t]{\textwidth}{%
       \hspace*{11.2cm}\iftongji@secret{\sanhao\tongji@secret@title}\else\rule{1cm}{0cm}\fi\\[0.1cm]
-      \hspace*{-0.1cm}\includegraphics[scale=0.16]{tongjilogo.png}}
+      \centering{\includegraphics[scale=0.9]{tongji-whole-logo.png}}}
+      \vskip 0.4cm% 这里添加距离 张泽
           \parbox[t][9cm][t]{\paperwidth-10cm}{
       \renewcommand{\baselinestretch}{1}
       \begin{center}
-            \sanhao[1]{\tongji@capply}\par\vskip 1.4cm
-            \yihao[2]\textbf{\hei\tongji@ctitle}\par\vskip 17pt
+            \erhao[1]{\li{\tongji@capply\par\sihao{\li{(专业学位)}}}}\par\vskip 1cm % 适当减小这个距离 origianl:1.4cm
+			%\sihao[2]{\li{(专业学位)}}\par\vskip 28pt
+            \erhao[2]\textbf{\hei\tongji@ctitle}\par\vskip 17pt % 17pt
      \ifx\cfunds\@empty\else
             \xiaosi{\tongji@cfunds}
              \par\vskip 20bp\fi
@@ -572,10 +566,11 @@
           \else
       \begin{tabular}{p{\tongji@title@width}c@{\extracolsep{8pt}}p{7cm}l}
           \fi
-              \tongji@put@title{\tongji@cdepartmenttitle}  & \tongji@title@sep & {\ziju{3bp}\tongji@cdepartment}\\
-              \tongji@put@title{\tongji@cmajortitlefirst}       & \tongji@title@sep & {\ziju{3bp}\tongji@cmajorfirst}\\
-              \tongji@put@title{\tongji@cmajortitlesecond} & \tongji@title@sep & {\ziju{3bp}\tongji@cmajorsecond}\\
-              \tongji@put@title{\tongji@cauthortitle}      & \tongji@title@sep & {\ziju{3bp}\tongji@cauthor}\\
+             \tongji@put@title{\tongji@cauthorname}        & \tongji@title@sep & {\ziju{3bp}\tongji@cauthor}\\
+			  \tongji@put@title{\tongji@cauthornr}        & \tongji@title@sep & {\ziju{3bp}\tongji@cstnr}\\
+			  \tongji@put@title{\tongji@cdepartmenttitle}        & \tongji@title@sep & {\ziju{3bp}\tongji@cdepartment}\\
+			  \tongji@put@title{\tongji@cdisplinetype}        & \tongji@title@sep & {\ziju{3bp}\tongji@degtype}\\
+			  \tongji@put@title{\tongji@cmajorname}        & \tongji@title@sep & {\ziju{3bp}\tongji@cmajorfirst}\\
               \tongji@put@title{\tongji@csupervisortitle}  & \tongji@title@sep & {\ziju{3bp}\tongji@csupervisor}\\
               \ifx\tongji@cassosupervisor\@empty\else
           \tongji@put@title{\tongji@cassosupertitle} & \tongji@title@sep & {\ziju{3bp}\tongji@cassosupervisor}\\
@@ -595,8 +590,8 @@
     \vspace*{0.4cm}
     \parbox[b][1.8cm][t]{\textwidth}{%
       \hspace*{11.2cm}\iftongji@secret{\sanhao\tongji@secret@title}\else\rule{1cm}{0cm}\fi\\[-0.1cm]
-      \hspace*{-0.1cm}\includegraphics[scale=0.16]{tongjilogo.png}}
-      \vskip -0.9cm
+      \centering{\includegraphics[scale=0.9]{tongji-whole-logo.png}}}
+      \vskip 0.4cm% 这里添加距离 张泽
     \parbox[t][9cm][t]{\paperwidth-6cm}{
       \renewcommand{\baselinestretch}{1}
       \begin{center}
@@ -606,22 +601,24 @@
              \par\vskip 20bp\fi
       \end{center}}
        \vskip 0.5cm
-      \hspace*{1.6cm}\parbox[t][8.7cm][t]{\textwidth}{\sanhao[1.5]
+      \hspace*{0.5cm}\parbox[t][8.7cm][t]{\textwidth}{\sanhao[1.5] % default: 1.6cm 调整表格左面开始位置 张泽
         \begin{center}
-        \begin{tabular}{lp{7cm}l}
+        \begin{tabular}{ll}%lp{7cm}l 张泽 修改
+          Candidate :& \tongji@eauthor\\
+          Student Number :& \tongji@cstnr\\
           School/Department :& \tongji@edepartment\\
-          Discipline : & \tongji@emajorfirst\\
-          Major : & \tongji@emajorsecond\\
-          Candidate :& \tongji@eauthor\\ 
-              Supervisor : & \tongji@esupervisor\\
-        \ifx\tongji@eassosupervisor\@empty
+          Discipline : & \tongji@edispline\\
+          Major : & \tongji@emajorfirst\\
+          Supervisor : & \tongji@esupervisor\\
+		\ifx\tongji@eassosupervisor\@empty
           \else Associate Supervisor : & \tongji@eassosupervisor\\\fi
         \ifx\tongji@ecosupervisor\@empty
           \else Cooperate Supervisor : & \tongji@ecosupervisor\\\fi
       \end{tabular}
     \end{center}}
+    \vspace*{-1cm}
      \begin{center}
-       \sanhao\bfseries\sffamily\tongji@edate
+       {\sanhao\tongji@edate}
      \end{center}
 \end{center}} % end of english cover
 
@@ -670,13 +667,13 @@
   \pagestyle{tongji@headings}  
   \pagenumbering{Roman}
   \tongji@cabstract
-  \vskip 12bp
+  \vskip12bp
   \setbox0=\hbox{{\hei\tongji@ckeywords@title}}
   \noindent\hangindent\wd0\hangafter1
     \box0\tongji@ckeywords
   \tongji@chapter*[]{\eabstractname} % no tocline
   \tongji@eabstract
-  \vskip 12bp
+  \vskip12bp
   \setbox0=\hbox{\textbf{Key words:\enskip}}
   \noindent\hangindent\wd0\hangafter1
     \box0\tongji@ekeywords}
@@ -747,7 +744,6 @@
     \widowpenalty4000%
     \interlinepenalty4000%
     \sfcode`\.\@m}
-	
    {\def\@noitemerr
      {\@latex@warning{Empty `thebibliography' environment}}%
     \endlist\frenchspacing}

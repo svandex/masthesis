@@ -20,13 +20,17 @@
 
 \makeatother
 
-\cdepartment{同济大学汽车学院}
+\cdepartment{汽车学院}
 
-\cmajorfirst{工程热物理}
+\cmajorfirst{动力工程}
 
-\cmajorsecond{动力工程}
+\cmajorsecond{}
 
 \cauthor{邱君诚}
+
+\cstnr{1335034}
+
+\degtype{工学}
 
 \csupervisor{吴志军 教授}
 
@@ -49,53 +53,59 @@
 
 \makeatother
 
-\cfunds{自然基金项目(No.123456789) 重新写的}
+\cfunds{}
 
-\efunds{(Supported by the Natural Science Foundation of China for\\ Distinguished
-         Young Scholars, Grant No.123456789)}
+\efunds{}
 
-\etitle{A Simple Sample of Tongji Thesis\\ Using \tongjithesis{}}
+\etitle{Condition Expand on Ion Current Characteristics Based On Capacitive Detection Circuit}
 
-\edepartment{TONGJILUG}
+\edepartment{School of Automotive Study}
 
-\emajorfirst{TONGJILUG}
+\emajorfirst{Power Machinery and Engineering}
 
 \emajorsecond{TONGJILUG}
 
-\eauthor{Tongji Ren}
+\edispline{Engineering Science}
 
-\esupervisor{Prof. Gang Pei}
+\eauthor{Juncheng Qiu}
 
-\eassosupervisor{Prof. Gang Wan}
+\esupervisor{Prof. Zhijun Wu}
+
+%\eassosupervisor{Prof. Gang Wan}
 
 % 这个日期也会自动生成，你要改么？
 % \edate{May, 2009}
 
 % 定义中英文摘要和关键字
 \begin{cabstract}
-这是摘要
+电容式离子电流检测电路具有性价比高，安装方便的特点。但是由于没有屏蔽点火干扰，随着转速的增加，容易造成点火干扰淹没正常的离子电流信号的弊端。\par
+本文通过小波分析的方法很好的将离子电流信号中的点火干扰信号分离出去，获得了理想的离子电流信号。同时比较不同的小波基函数以及小波分析层级，得出了最佳的小波基函数和分解层数。离子电流的火焰后期
+信号在理论上近似高斯函数，同时缸内的循环废弃导致的离子电流信号也可以近似成高斯函数，整个检测到的离子电流信号可以用双高斯曲线进行拟合。
+采用了拟合算法得到的拟合曲线参数，能够快速地计算出离子电流的各种特征值，能够大大缩小需要的发动机控制系统的计算资源；比较了特征值的估计值和真实值之间的相关性和循环波动率，验证了
+双高斯曲线拟合算法估算离子电流特征值的有效性。\par
+离子电流的火焰后期开始时刻估计值与结束时刻估计值、最大离子电流升高率估计值与各自对应的特征值有一定的相关性。
+离子电流的火焰后期峰值相位估计值、离子电流积分值估计值和最大离子电流升高率相位估计值与各自对应的特征值有明显的相关性。
+离子电流积分值和升高率估计值有一定波动，其他特征值的估计值都具有很好的稳定性。
 \end{cabstract}
 
-\ckeywords{离子电流, 点火干扰, CJK}
+\ckeywords{离子电流, 点火干扰, 小波分析, 高斯曲线}
 
 \begin{eabstract}
-   An abstract of a dissertation is a summary and extraction of research work
-   and contributions. Included in an abstract should be description of research
-   topic and research objective, brief introduction to methodology and research
-   process, and summarization of conclusion and contributions of the
-   research. An abstract should be characterized by independence and clarity and
-   carry identical information with the dissertation. It should be such that the
-   general idea and major contributions of the dissertation are conveyed without
-   reading the dissertation.
-
-   An abstract should be concise and to the point. It is a misunderstanding to
-   make an abstract an outline of the dissertation and words ``the first
-   chapter'', ``the second chapter'' and the like should be avoided in the
-   abstract.
-
-   Key words are terms used in a dissertation for indexing, reflecting core
-   information of the dissertation. An abstract may contain a maximum of 5 key
-   words, with semi-colons used in between to separate one another.
+Capacitive detection circuit has cost effeciency and is easy to deposit. 
+But due to the ignition interfere, the ion current would be submerged by the interfere with the engine speed up.
+This is a weak point of this kind of ion current detection circuit.\par
+In this paper, real and ideal ion current is extracted
+using wavelet analysis method. Different wavelet functions are compared and different wavelet are discussed to dertermine
+the best wavelet function and wavelet level. The profile of real ion current in post-frame peroid is similar to that of 
+gaussian curve, and the ion current caused by residual waste gas of last cycle also has the similar profile to gaussian
+ curve. So the whole ion curren could be simulated by the addition of two gaussian curves and eigen value of ion current
+ can be calculated fast by the parameters of two gaussian curves conviniently reducing the computing resource of engine control 
+ system. The coefficience of estimated value of each eigen value to each eigen value is validated and fluctuation ratio 
+ of each eigen value is calculated to determine the application of double-gaussian method.\par
+The time of start and end of post-frame period, the maximum ion rising rate has certain
+correspondence to each corresponding eigen value. Ion peak phase, ion integeration and maximum ion
+rising rate phase has explicit correspondence to each corresponding eign value.
+Despite ion integration and ion rising rate, all the other estimated value have good solidity.
 \end{eabstract}
 
-\ekeywords{\TeX, \LaTeX, CJK, template, thesis}
+\ekeywords{Ion Current, Ignition Interfere, Wavelet Analysis, Gaussian}

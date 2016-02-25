@@ -1,6 +1,21 @@
 \ProvidesPackage{tongjiutils}[2009/05/13 1.0 put any packages you
 would like to use here]
 
+% Define default figure width
+\def \deffigwidth {0.6\linewidth}
+
+% Enable code highlighting and auto-wrapping
+\RequirePackage{listings}
+\lstset{numbers=left, numberstyle=\tiny,
+keywordstyle=\color{blue!70},
+commentstyle=\color{red!90},
+rulesepcolor=\color{red!20!green!20!blue!20},
+extendedchars=false,
+escapechar=`,language=Matlab,
+breaklines=true,showstringspaces=false}
+
+\RequirePackage{textcomp}
+
 % 处理数学公式中的黑斜体的宏包
 %\RequirePackage{bm}
 
@@ -26,14 +41,14 @@ would like to use here]
 % 调整目录特殊要求，重定义缩进量
 \usepackage{titletoc}
 \titlecontents{chapter}[0pt]{\addvspace{6pt}}%
-          {\Large\song\thecontentslabel\enspace}%
-              {\Large\song}{\dotfill\contentspage}[\addvspace{0pt}]
+          {\xiaosi\song\thecontentslabel\enspace}%
+              {\xiaosi\song}{\dotfill\contentspage}[\addvspace{0pt}]
 \titlecontents{section}[2em]{\addvspace{6pt}}%
-          {\large\song \thecontentslabel\enspace}%
-              {\large\song}{\dotfill\contentspage}[\addvspace{0pt}]
+          {\xiaosi\song \thecontentslabel\enspace}%
+              {\xiaosi\song}{\dotfill\contentspage}[\addvspace{0pt}]
 \titlecontents{subsection}[4em]{\addvspace{6pt}}%
-          {\wuhao\song\thecontentslabel\enspace}%
-              {\wuhao\song}{\dotfill\contentspage}[\addvspace{0pt}]
+          {\xiaosi\song\thecontentslabel\enspace}%
+              {\xiaosi\song}{\dotfill\contentspage}[\addvspace{0pt}]
 
 % 浮动图形控制宏包。
 % 允许上一个~section 的浮动图形出现在下一个~section 的开始部分
@@ -46,8 +61,11 @@ would like to use here]
 % 给自定义的宏后面自动加空白
 % \RequirePackage{xspace}
 
-
 % 定义自己常用的东西
 \newcommand{\china}{中华人民共和国}
+%%自己添加
+
+%添加颜色包
+\RequirePackage[table]{xcolor}
 
 \endinput

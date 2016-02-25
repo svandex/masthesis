@@ -36,15 +36,15 @@ $NO$起主导作用的原因见表\ref{tab:nozx}，$NO$的电离能在燃气内�
 	\caption{燃气中主要物质的电离参数}
 	\label{tab:nozx}
 	\begin{tabular}{c|rl|c|c}
-		\hline
-		物质			    &    \multicolumn{2}{c|}{电离能$/eV$}    &    浓度(在$15^{\circ} CA\ ATDC$时)    &    电离率\\\hline
+		\toprule[1.5pt]
+		物质			    &    \multicolumn{2}{c|}{电离能$/eV$}    &    浓度(在$15^{\circ} CA\ ATDC$时)    &    电离率\\\midrule[1pt]
 		$NO$    		&   9.264&05     	&$1.48 \times 10^{-2}$  &  $2.44 \times 10^{-8}$\\
 		$H_{2}O_{2}$    &   10.540&00 		&$1.60 \times 10^{-6}$  & $1.73 \times 10^{-9}$\\
 		$CO$			&	14.013&90		&$4.85 \times 10^{-2}$	& $1.30 \times 10^{-12}$\\
 		$CO_{2}$		&	13.777&00		&$7.17 \times 10^{-2}$	& $2.10 \times 10^{-12}$\\
 		$H_{2}O$		&	12.618&80		&$1.16 \times 10^{-1}$	& $2.33 \times 10^{-11}$\\
 		$N_{2}$			&	15.580&80		&$6.99 \times 10^{-1}$	& $5.03 \times 10^{-14}$\\
-		$H_{2}$			&	15.425&89		&$9.72 \times 10^{-3}$	& $6.87 \times 10^{-14}$\\\hline
+		$H_{2}$			&	15.425&89		&$9.72 \times 10^{-3}$	& $6.87 \times 10^{-14}$\\\bottomrule[1.5pt]
 	\end{tabular}
 \end{table}
 这样，$NO$的电离率比其他物质的要大很多。大部分$NO$在$1000^{\circ}C$以上的温度根据Thermal或
@@ -101,15 +101,15 @@ $\mu_{i}$将于电场强度$E$有关。可以用一个经验公式表达，即
 	\caption{离子和电子的比较}
 	\label{tab:lzdz}
 	\begin{tabular}{c|c|c}
-	\hline
+	\toprule[1.5pt]
 	&电子&离子\\
-	\hline
+	\midrule[1pt]
 	质量&小&大\\
 	平均热运动& 大&小\\
 	能量积累&可以&不可以\\
 	碰撞面积&小&大\\
 	刚体碰撞&否&是\\
-	\hline
+	\bottomrule[1.5pt]
 	\end{tabular}
 \end{table}
 \subsection{火花塞离子电流的数学模型}
@@ -207,7 +207,7 @@ $\kappa$为波尔兹曼常数。
 $C_{q}$、$C_{r}$、$C_{p}$分别表示前端中心电极、内置电阻、后端中心电极对火花塞金属外壳的寄生电容。火花塞内部可以看作静电场，因此火花塞动态模型可以如图\ref{fig:hhscircuit}所示。\
 \subsection{火花塞间隙间的火花电阻}
 图\ref{fig:hhscircuit}中的火花塞内置电阻$r_{g}$，前段中心电极对火花塞金属外壳的寄生电容$C_{q}$，内置电阻对火花塞金属外壳的寄生电容$C_{r}$，后端中心电极对火花塞
-金属外壳的寄生电容$C_{p}$都可以通过有限元的方法进行计算\cite{zyl2011}。而火花塞间隙间的火花电阻$R_{g}$需要另外的方法进行计算。
+金属外壳的寄生电容$C_{p}$都可以通过有限元的方法进行计算\cite{zyl2011,wyj1999}。而火花塞间隙间的火花电阻$R_{g}$需要另外的方法进行计算。
 \par 由Rompe-Weizel理论可知，火花电阻$r_{g}$是一个随时间变化的量，当火花间隙被击穿后，其随时间变化的关系为：
 \begin{equation}
 	\label{eqn:qxr}
@@ -373,28 +373,29 @@ Coiflet的$\psi(t)$和$\phi(t)$具有比dbN更好的对称性。
 	\caption{可离散变换的小波函数比较}
 	\label{tab:lsxb}
 	\begin{tabular}{c|c|c|c|c}
-	\hline
+	\toprule[1.5pt]
 	小波名称&正交性&双正交性&紧支撑性&支撑长度\\
-	\hline
+	\midrule[1pt]
 	db&是&是&是&2N-1\\
 	sym&是&是&是&2N-1\\
 	dmey&是&是&是&有限长度\\
 	coif&是&是&是&6N-1\\
-	\hline
+	\midrule[1pt]
 	\multicolumn{5}{c}{}
 	\end{tabular}
 	\begin{tabular}{c|c|c|c|c}
-	\hline
+	\midrule[1pt]
 	小波名称&滤波器长度&对称性&小波函数消失矩阶数&尺度函数消失矩阵数\\
-	\hline
+	\midrule[1pt]
 	db&2N&对称&N&-\\
 	sym&2N&近似对称&N&-\\
 	dmey&[-8,8]&对称&-&-\\
 	coif&6N&近似对称&2N&2N-1\\
-	\hline
+	\bottomrule[1.5pt]
 	\end{tabular}
 \end{table}
-基本小波类型的选择较难总结成一般原则，只能针对具体问题提出具体原则。例如对于分段多项式结构组成的信号，db小波比较适用；如果信号含正弦分量或高频振荡，则局部三角函数基比较合适。如何
+基本小波类型的选择较难总结成一般原则，只能针对具体问题提出具体原则。\par
+例如对于分段多项式结构组成的信号，db小波比较适用；如果信号含正弦分量或高频振荡，则局部三角函数基比较合适。如何
 根据分析信号的特点，结合任务来优化设计小波函数一直是值得探讨的问题，迄今为止还没有系统完整的总结。且对于一些特定的离散问题，还可以通过利用多分辨率分析的方法自己构造离散的尺度函数和
 小波函数。
 \section{高斯曲线拟合}
@@ -405,53 +406,40 @@ Coiflet的$\psi(t)$和$\phi(t)$具有比dbN更好的对称性。
 \end{equation}
 其中$a$，$b$，$c$为实常数，且$a>0$。
 \par  $c^2=2$的高斯函数是傅里叶变换的特征函数。这就意味着高斯函数的傅里叶变换不仅仅是另一个高斯函数，而且是进行傅里叶变换的函数的标量倍。
-高斯函数的不定积分是误差函数。在自然科学、社会科学、数学以及工程学等领域都有高斯函数的身影，比如在统计学与机率论中，高斯函数是正态分布的密度函数，根据中心极限定理，他是复杂
+高斯函数的不定积分是误差函数。\par
+在自然科学、社会科学、数学以及工程学等领域都有高斯函数的身影，比如在统计学与机率论中，高斯函数是正态分布的密度函数，根据中心极限定理，他是复杂
 总和的有限几率分布。
 \subsection{离子电流拟合原理和方法}
 Saitzkoff\cite{saitzkoff1996ionization}在缸内气体完全燃烧并且达到热化学平衡情况下推导了火焰后期的离子电流的理论公式。
 \begin{equation}
 	\frac{I}{I_{m}}=\frac{1}{\frac{p}{p_m}}^{\frac{1}{2}-\frac{3}{4}\frac{\gamma -1}{\gamma}}e^{-\frac{E_i}{2\kappa T_m}[\frac{1}{(\frac{p}{p_m})^{\frac{\gamma -1}{\gamma}}}-1]}
 \end{equation}
-其中各物理量含义如下所示\par 
-\begin{table}[H]
+其中各物理量含义如表\ref{tab:gswllhy}所示。
+\begin{table}[htb]
 	\centering
+	\caption{\label{tab:gswllhy}公式物理量含义}
 	\begin{tabular}{cc}
-	I&离子电流\\
-	$I_m$&离子电流最大值\\
-	p&缸压\\
-	$p_m$&缸压最大值\\
-	$T_m$&最大温度\\
-	$\gamma$&热力学系数\\
-	$\kappa$&波尔兹曼常数\\
-	$E_i$&离子电流能量
+		\toprule[1.5pt]
+		物理量&含义\\
+		\midrule[1pt]
+		I&离子电流\\
+		$I_m$&离子电流最大值\\
+		p&缸压\\
+		$p_m$&缸压最大值\\
+		$T_m$&最大温度\\
+		$\gamma$&热力学系数\\
+		$\kappa$&波尔兹曼常数\\
+		$E_i$&离子电流能量\\
+		\bottomrule[1.5pt]
 	\end{tabular}
 \end{table}
-\par 该公式与高斯函数相近。所以整个离子电流的计算公式可以写成
-\begin{gather}
-	I(\theta)=f(\theta)+\alpha_{1}e^{-\frac{1}{\alpha_{2}}(\theta - \alpha_{3})^2} \label{eqn:interp1}
-\end{gather}
-其中$f(\theta)$是火焰前锋期的模型。为了简化整个模型的计算，我们可以将火焰前锋期的模型也有高斯函数替代。于是整个离子电流的计算公式写成
-\begin{gather}
-	I(\theta)=\alpha_{1}e^{-\frac{1}{\alpha_{2}}(\theta - \alpha_{3})^2}+\beta_{1}e^{-\frac{1}{\beta_{2}}(\theta - \beta_{3})^2}
-	\label{eqn:interp2}
-\end{gather}
-\par
+该公式与高斯函数相近。所以可以将火焰后期的离子电流近似拟合成高斯曲线。\par
 L.Eriksson和L.Nielsen\cite{eriksson1996ignition,eriksson1997closed,eriksson1997ionization}采用该方法能够准确地估计缸压最值对应相位，从而可以
-自适应调整点火提前角，提高了发动机的燃烧效率。
-\subsection{拟合方法优劣的评判标准}
-来自马里兰大学的T. C. O'Haver给出了曲线拟合的方法\cite{tco_gs}能够有效的对数据进行拟合。根据拟合公式\ref{eqn:interp1}和\ref{eqn:interp2}可以知道，我们可以用两个高斯
-函数来对小波分析处理后的离子电流信号曲线进行拟合，从而得到离子电流的关键特征参数。采集到的离子电流曲线有很多杂乱信号，而且整个信号也有部分波动，有较多的峰值。只有通过函数拟合的方
-式，才能够较好的获得离子电流特征参数。\par
-拟合方法优劣的评判标准主要是误差分析。一个是绝对误差分析，也就是拟合曲线和真实曲线之间的绝对误差
-\begin{gather}
-	err_{abs} = min(|sim-real|);
-\end{gather}
-另一个是相对误差
-\begin{gather}
-	err_{rel} = \frac{(sim-real)^2}{max(real)}
-\end{gather}
-\par
-误差越小说明方法越是精确。除此之外，拟合曲线应该包含原有曲线的部分特征，比如特征点的相位对应等。
+自适应调整点火提前角，提高了发动机的燃烧效率。Magnus Hellring等人也通过了拟合曲线的方法控制了缸压峰值相位的位置\cite{hellring2001comparison}。\par
+而由于排气过程不能将缸内的所有废弃排除缸内，断油循环和断火循环中仍然存在部分带NO离子
+的废弃，仍然可以检测到离子电流。同样道理，在正常循环的点火之前由于存在部分废气，离子电流检测电路可以检测到轻微的离子电流信号。这部分废弃导致的离子电流信号也可以用高斯函数近似分析。
+由此整个检测到的离子电流信号可以用两个高斯曲线拟合来进行分析。
+
 
 
 
