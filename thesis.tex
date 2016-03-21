@@ -3,7 +3,7 @@
 %%% TeX-master: t
 %%% End:
 
-\documentclass[master]{tongjithesis}
+\documentclass[master,openright]{tongjithesis}
 % \documentclass[%
 %   master|doctor, % mandatory option
 %   xetex|pdftex|dvips|dvipdfm, % optional
@@ -13,7 +13,7 @@
 
 % 所有其它可能用到的包都统一放到这里了，可以根据自己的实际添加或者删除。
 \usepackage{tongjiutils}
-\usepackage[top=3.8cm, bottom=3.8cm, left=3.2cm, right=3.2cm]{geometry}
+\usepackage[top=2.54cm, bottom=2.54cm, left=3.17cm, right=3.17cm]{geometry}
 
 % 你可以在这里修改配置文件中的定义，导言区可以使用中文。
 \def\myname{邱君诚}
@@ -25,16 +25,16 @@
 
 %%% 封面部分
 \frontmatter
-%\input{data/cover}
-%\makecover
+\input{data/cover}
+\makecover
 
 
 % 目录
 
-%\tableofcontents
+\tableofcontents
 
 % 符号对照表
-%\input{data/denotation}
+\input{data/denotation}
 
 %%% 以下索引按需要选择
 % 插图索引
@@ -43,27 +43,26 @@
 %\listoftables
 % 公式索引
 %\listofequations
-
+\cleardoublepage
 %%% 正文
 \mainmatter
 \include{chapter/1_intro_chapter}
 \include{chapter/2_model_chapter}
 \include{chapter/3_platformer_chapter}
-%\include{chapter/4_ion_chapter}
-%\include{chapter/5_validation_chapter}
-%\include{chapter/6_conclusion_chapter}
+\include{chapter/4_ion_chapter}
+\include{chapter/5_validation_chapter}
+\include{chapter/6_conclusion_chapter}
 
 %%% 其它部分
 \backmatter
-
 \makeatother
+
+% 致谢
+\include{data/ack}
 
 % 参考文献
 \bibliographystyle{tongjibib}
 \bibliography{ref/ref_thesis}
-
-% 致谢
-%\include{data/ack}
 
 % 附录
 %\begin{appendix}
@@ -71,5 +70,5 @@
 %\end{appendix}
 
 % 个人简历
-%\include{data/resume}
+\include{data/resume}
 \end{document}

@@ -11,10 +11,10 @@
 % 按照申请工学学位设计。如有其它需要，请修改相应文字。
 \makeatletter
   \iftongji@doctor
-    \cdegree{工学博士}
+    \cdegree{博士}
   \else
     \iftongji@master
-      \cdegree{工学硕士}
+      \cdegree{硕士}
     \fi
   \fi
 
@@ -30,9 +30,9 @@
 
 \cstnr{1335034}
 
-\degtype{工学}
+\degtype{工程}
 
-\csupervisor{吴志军 教授}
+\csupervisor{吴志军\ \,教授}
 
 % 如果没有副指导老师或者联合指导老师，把各自{}中内容留空即可。
 
@@ -61,11 +61,11 @@
 
 \edepartment{School of Automotive Study}
 
-\emajorfirst{Power Machinery and Engineering}
+\emajorfirst{Power Engineering}
 
 \emajorsecond{TONGJILUG}
 
-\edispline{Engineering Science}
+\edispline{Engineering}
 
 \eauthor{Juncheng Qiu}
 
@@ -78,34 +78,43 @@
 
 % 定义中英文摘要和关键字
 \begin{cabstract}
-电容式离子电流检测电路具有性价比高，安装方便的特点。但是由于没有屏蔽点火干扰，随着转速的增加，容易造成点火干扰淹没正常的离子电流信号的弊端。\par
-本文通过小波分析的方法很好的将离子电流信号中的点火干扰信号分离出去，获得了理想的离子电流信号。同时比较不同的小波基函数以及小波分析层级，得出了最佳的小波基函数和分解层数。离子电流的火焰后期
-信号在理论上近似高斯函数，同时缸内的循环废弃导致的离子电流信号也可以近似成高斯函数，整个检测到的离子电流信号可以用双高斯曲线进行拟合。
-采用了拟合算法得到的拟合曲线参数，能够快速地计算出离子电流的各种特征值，能够大大缩小需要的发动机控制系统的计算资源；比较了特征值的估计值和真实值之间的相关性和循环波动率，验证了
-双高斯曲线拟合算法估算离子电流特征值的有效性。\par
-离子电流的火焰后期开始时刻估计值与结束时刻估计值、最大离子电流升高率估计值与各自对应的特征值有一定的相关性。
-离子电流的火焰后期峰值相位估计值、离子电流积分值估计值和最大离子电流升高率相位估计值与各自对应的特征值有明显的相关性。
-离子电流积分值和升高率估计值有一定波动，其他特征值的估计值都具有很好的稳定性。
+点燃式发动机上止点附近的燃烧产生大量的离子在缸内无规则的移动，且随着缸内燃烧温度的逐渐增加，
+缸内离子的运动越加的剧烈。这种剧烈运动的离子如果收到火花塞两极之间加上的直流偏置电压，就会形成离子电流。这种电流能够很好地
+对缸内的燃烧状况进行指示。电容式离子电流检测电路具有性价比高，安装方便的特点。但是由于没有屏蔽点火干扰，随着转速的增加，容易造成点火干扰淹没正常的离子电流信号的弊端。\par
+通过分析不同工况下的离子电流波形和对离子电流信号点火干扰的研究，揭示了点火干扰的来源和特性，提出了采用小波分析去除干扰的方法。比较不同的小波基函数以及小波分析层级，
+得出了dmey小波是最佳的小波基函数，最佳的分解层数为第五层。由于离子电流的产生原理是燃烧产生的离子的移动，不具有高频往复的特性，因此小波分析方法去除干扰有很强的
+科学性。\par
+离子电流的火焰后期信号在理论上近似高斯函数，同时缸内的循环废气导致的离子电流信号也可以近似成高斯函数，整个检测到的离子电流信号可以用双高斯曲线进行拟合。整个
+双高斯曲线拟合算法的基本原理是设定高斯曲线的初始参数，通过反复迭代计算拟合曲线和真实曲线差值来确定最小差值，从而得出最小差值时的高斯曲线参数。
+采用双高斯拟合算法快速计算了离子电流的火焰后期峰值、火焰后期时间、离子电流积分值和离子电流最大升高率等特征值的估计值，拓展了可计算转速和特征值的数目，计算
+了各特征值估计值的循环波动率和相关性，并验证了方法的科学性和有效性。\par
+经计算各特征值估计值的循环波动率都在5\%以内，各特征值估计值的相关系数都在0.5以上，且随着转速的增加各特征值估计值的相关系数都呈增长的趋势，
+循环波动率也随着转速的增加而缓慢地增加。离子电流积分值和最大升高率估计值有一定的波动，其他特征值的估计值都具有很好的稳定性。
+采用双高斯拟合算法计算得到的特征值估计值总体稳定性较好，其替代原特征值的可靠性强。
 \end{cabstract}
 
-\ckeywords{离子电流, 点火干扰, 小波分析, 高斯曲线}
+\ckeywords{离子电流; 点火干扰; 小波分析; 高斯曲线}
 
 \begin{eabstract}
-Capacitive detection circuit has cost effeciency and is easy to deposit. 
+There exist large amount of ionic particles moving rapidly and randomly when combustion has happened on the top dead
+ center of the internal combustion engine, the motion of these ionic particles will be heavy when the temperature of 
+ mixture gas rises. If a direct voltage is charged between two electrodes, a current will be emerged that is able to indicate
+ the status of combustion of the engine. Capacitive detection circuit has cost effeciency and is easy to deposit. 
 But due to the ignition interfere, the ion current would be submerged by the interfere with the engine speed up.
 This is a weak point of this kind of ion current detection circuit.\par
-In this paper, real and ideal ion current is extracted
-using wavelet analysis method. Different wavelet functions are compared and different wavelet are discussed to dertermine
-the best wavelet function and wavelet level. The profile of real ion current in post-frame peroid is similar to that of 
-gaussian curve, and the ion current caused by residual waste gas of last cycle also has the similar profile to gaussian
- curve. So the whole ion curren could be simulated by the addition of two gaussian curves and eigen value of ion current
- can be calculated fast by the parameters of two gaussian curves conviniently reducing the computing resource of engine control 
- system. The coefficience of estimated value of each eigen value to each eigen value is validated and fluctuation ratio 
- of each eigen value is calculated to determine the application of double-gaussian method.\par
-The time of start and end of post-frame period, the maximum ion rising rate has certain
-correspondence to each corresponding eigen value. Ion peak phase, ion integeration and maximum ion
-rising rate phase has explicit correspondence to each corresponding eign value.
-Despite ion integration and ion rising rate, all the other estimated value have good solidity.
+By analyzing ion profile and the ignition interfere on different conditions, characteristics of ignition interfere has been calculated and 
+a method to get rid of the interfere has been provided.Based on analysis of different wavelet base function and wavelet order, conclusion has
+been made that the best wavelet base function is dmey and the best order of wavelet analysis is 5. Wavelet analysis is scientifc and effective because
+ ion whose production principle is movement of ion in electric field,  has no feature of high frequency reciprocating. \par
+ The post-frame ion profile is similar to gaussian profile, while the ion profile of waste gas is also similar to gaussian profile. So the whole
+ ion profile could be simulated by two gaussian curves. The basic principle of two-gaussian simulation method is iteration of calculating the difference between
+  the simulation curve and real curve with the initial parameters of gaussian curve, the final parameters are determined when the minimal difference is found.
+ Use two-gaussian simulation method to calculate estimated value rapidly, expand the available
+ engine speed and the number of eigen value, calculate the coeffecient of variance of each eigen value and their own correspondence, and validate the availability of 
+ this method.\par
+By calculating, all coeffeciencies of variance of each eigen value is limited to 5\%, all correspondences of each eigen value is more than 0.5, and they all increase
+while the engine speed is up. Despite eigen values of ion integration and maximum of rising have a bit variance, other eigen values are stable.
+It is convincible to use all eigen values to substitute origin values.
 \end{eabstract}
 
-\ekeywords{Ion Current, Ignition Interfere, Wavelet Analysis, Gaussian}
+\ekeywords{Ion Current; Ignition Interfere; Wavelet Analysis; Gaussian}

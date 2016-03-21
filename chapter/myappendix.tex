@@ -20,7 +20,7 @@ switch nargin
     otherwise
 end
 
-y_a = dgtflt(diff(y));
+y_a = dgtflt(diff(y)); %digital filter function
 
 for num = 1:length(y_a)
     if y_a(num)>0.1
@@ -55,61 +55,85 @@ fB = struct('fBs',flucBStart,'fBe',flucBEnd);
 	breaklines=true}
 	
 \begin{lstlisting}[frame=single,language=matlab]
-function [lambda,A,peakHeights] = iongaussfit(y)
-	% y         ion data sequence from 270 to 450 degree.
-	% lambda    a matrix of 2x2, each row is responsive to a gaussian curve
-	global numpeaks ns pos1 pos2;
-	ns = 1:length(y);
-	numpeaks = 2;
-	[~,tempos] = max(y);
+function [lambda,A,peakHeights,ry] = iongaussfit(y,dg1,dg2)
+% y	ion data sequence from 0 to 720 degree.
+% lambda	a matrix of 2x2, each row is responsive to a gaussian curve
+% dg1	start degree of fitting
+% dg2	end degree of fitting
+% ry	real ion data
+% A	gaussian data matrix
+% peakHeights peak height of each gaussian
 
-	%gaussian parameter initial setting
-	pos1 = round(length(y)/2); % pos1 = 360 dgr
-	pos2 = tempos; % pos2 = the maximum value of ion
-	slambda = [pos1,1200,pos2,100];
+global numpeaks ns pos1 pos2 ca;
+if dg1>=dg2||dg1>=360
+    disp('dg1 arg fault!');
+    return;
+end
+ca = dg2-dg1;
+dg1num = round(length(y)*dg1/720);
+dg2num = round(length(y)*dg2/720);
+ry = y(dg1num:dg2num);
 
-	options = optimset('TolX',.00001,'Display','iter' );
-	lambda = fminsearch(@fitgaussian,slambda,options,y);
+ns = 1:length(ry);
+numpeaks = 2;
+[~,tempos] = max(ry);
 
-	A(:,1) = gaussian(ns,lambda(1),lambda(2));
-	A(:,2) = gaussian(ns,lambda(3),lambda(4));
+%gaussian parameter initial setting
+pos1 = round(length(ry)*(360-dg1)/(dg2-dg1)); % pos1 = ca50
+pos2 = tempos; % pos2 = the maximum value of ion
+slambda = [pos1,1200,pos2,100];
 
-	peakHeights = abs(A\y);
+options = optimset('TolX',.00001);
+plambda = fminsearch(@fitgaussian,slambda,options,ry);
 
-	test(A,peakHeights,y); %plot model and each gaussian curve
+A(:,1) = gaussian(ns,plambda(1),plambda(2));
+A(:,2) = gaussian(ns,plambda(3),plambda(4));
+
+ppeakHeights = abs(A\ry);
+
+% test(A,ppeakHeights,ry,dg1,dg2);
+
+[~,phm] = min([plambda(2),plambda(4)]);
+peakHeights = zeros(2,1);
+peakHeights(1) = ppeakHeights(3-phm);
+peakHeights(2) = ppeakHeights(phm);
+
+lambda(1) = (dg2-dg1)*plambda(2*(3-phm)-1)/length(ry)+dg1;
+lambda(2) = (dg2-dg1)*plambda(2*(3-phm))/length(ry);
+lambda(3) = (dg2-dg1)*plambda(2*phm-1)/length(ry)+dg1;
+lambda(4) = (dg2-dg1)*plambda(2*phm)/length(ry);
 end
 
 function err = fitgaussian(lambda,y)
-	global ns;
-	A(:,1) = gaussian(ns,lambda(1),lambda(2));
-	A(:,2) = gaussian(ns,lambda(3),lambda(4));
+    global ns;
+    A(:,1) = gaussian(ns,lambda(1),lambda(2));
+    A(:,2) = gaussian(ns,lambda(3),lambda(4));
 
-	peakheights = abs(A\y);
-	z = A*peakheights;
-	err = norm(z-y);
+    peakheights = abs(A\y);
+    z = A*peakheights;
+    err = norm(z-y);
 end
 
 function g = gaussian(x,pos,wid)
-	g = exp(-((x-pos)./(0.6005615.*wid)) .^2);
+    g = exp(-((x-pos)./(0.6005615.*wid)) .^2);
 end
 
-function test(A,peakHeights,y)
-	% TEST SCRIPTS
-	global numpeaks;
-	mmodel = A*peakHeights;
-	rge = (1:length(y))*180/length(y)+270;
-	
-	figure('unit','centimeters','position',[2 2 14.6*0.8 8]);hold on;
-	plot(rge,mmodel,'r');plot(rge,dgtflt(y,4),'b');
-	
-	for j=1:numpeaks;
-		plot(rge,peakHeights(j)*A(:,j));
-	end
-	
-	legend('sim model','real','gauss1','gauss2');
-	xlabel('crank angle(CA)');ylabel('ion voltage(V)');
-	ylim([0 1]);xlim([270 450]);
-	set(gca,'fontsize',8,'xtick',270:30:450);
+function test(A,peakHeights,y,dg1,dg2)
+% TEST SCRIPTS
+global numpeaks;
+mmodel = A*peakHeights;
+rge = (1:length(y))*(dg2-dg1)/length(y)+dg1;
+figure('unit','centimeters','position',[2 10 14.6*0.8 8]);hold on;
+plot(rge,mmodel,'r');plot(rge,dgtflt(y,4),'b');
+for j=1:numpeaks
+    plot(rge,A(:,j)*peakHeights(j));
+end
+legend('sim model','real','gauss1','gauss2','location','northwest');
+xlabel('crank angle(CA)');ylabel('ion voltage(V)');
+ylimvalue = get(gca,'ylim');
+ylim([0 ylimvalue(2)]);
+% xlim([dg1 dg2]);
+set(gca,'fontsize',8);
 
 end
 \end{lstlisting}

@@ -19,6 +19,8 @@
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{tongjithesis}
 [2009/05/13 1.0 Tongji University Thesis Template]
+\newif\if@openright
+\DeclareOption{openright}{\if@openright}
 \newif\iftongji@UTF
 \newif\iftongji@GBK
 \DeclareOption{utf}{\tongji@UTFtrue\tongji@GBKfalse}
@@ -83,21 +85,21 @@
 \RequirePackage[neverdecrease]{paralist}
 \iftongji@xetex
   \RequirePackage{xunicode,xltxtra}
-  \RequirePackage[CJKnumber]{xeCJK}
+  \RequirePackage{xeCJK}
   \RequirePackage{CJKnumb}
   \punctstyle{kaiming}
   % todo: minor fix of CJKnumb
   \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
   \defaultfontfeatures{Mapping=tex-text} % after fontspec
-  \setCJKmainfont[BoldFont={Adobe Heiti Std}, ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
-  \setCJKsansfont{Adobe Heiti Std}
-  \setCJKmonofont{Adobe Kaiti Std}
-  \setCJKfamilyfont{song}{Adobe Song Std}
-  \setCJKfamilyfont{hei}{Adobe Heiti Std}
-  \setCJKfamilyfont{fs}{Adobe Fangsong Std}
-  \setCJKfamilyfont{kai}{Adobe Kaiti Std}
-%  \setCJKfamilyfont{li}{STBaoli-SC-Regular}
-  \setCJKfamilyfont{you}{Adobe Kaiti Std} % todo: 用幼圆字体代替
+  \setCJKmainfont{Adobe Song Std L}%[BoldFont={Adobe Heiti Std}, ItalicFont={Adobe Kaiti Std}]
+  \setCJKsansfont{Adobe Heiti Std R}
+  \setCJKmonofont{Adobe Kaiti Std R}
+  \setCJKfamilyfont{song}{Adobe Song Std L}
+  \setCJKfamilyfont{hei}{Adobe Heiti Std R}
+  \setCJKfamilyfont{fs}{Adobe Fangsong Std R}
+  \setCJKfamilyfont{kai}{Adobe Kaiti Std R}
+  \setCJKfamilyfont{li}{LiSu}
+  \setCJKfamilyfont{you}{Adobe Kaiti Std R} % todo: 用幼圆字体代替
 
   \setmainfont{Times New Roman}
   \setsansfont{Arial}
@@ -145,7 +147,7 @@
 \fi
 \urlstyle{same}
 \RequirePackage{hypernat}
-
+%文档结构
 \renewcommand\frontmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
   \@mainmatterfalse
@@ -158,7 +160,9 @@
   \pagestyle{tongji@headings}}
 \renewcommand\backmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
-  \@mainmattertrue}
+  \@mainmattertrue
+  \pagestyle{tongji@otherheadings}}
+%字体设置
 \newcommand{\song}{\CJKfamily{song}}    % 宋体
 \def\songti{\song}
 \newcommand{\fs}{\CJKfamily{fs}}        % 仿宋体
@@ -167,7 +171,7 @@
 \def\kaishu{\kai}
 \newcommand{\hei}{\CJKfamily{hei}}      % 黑体
 \def\heiti{\hei}
-\newcommand{\li}{\CJKfamily{LiSu}}        % 隶书
+\newcommand{\li}{\CJKfamily{li}}        % 隶书
 \def\lishu{\li}
 \newcommand{\you}{\CJKfamily{you}}      % 幼圆
 \def\youyuan{\you}
@@ -175,6 +179,7 @@
 \newcommand{\tongji@choosefont}[2]{%
    \setlength{\tongji@linespace}{#2*\real{#1}}%
    \fontsize{#2}{\tongji@linespace}\selectfont}
+%字体大小设置
 \def\tongji@define@fontsize#1#2{%
   \expandafter\newcommand\csname #1\endcsname[1][\baselinestretch]{%
     \tongji@choosefont{##1}{#2}}}
@@ -197,16 +202,19 @@
 \tongji@define@fontsize{xiaoliu}{6.5bp}
 \tongji@define@fontsize{qihao}{5.5bp}
 \tongji@define@fontsize{bahao}{5bp}
+%行间距设置
 \renewcommand\normalsize{%
   \@setfontsize\normalsize{12bp}{20bp}
   \abovedisplayskip=10bp \@plus 2bp \@minus 2bp
   \abovedisplayshortskip=10bp \@plus 2bp \@minus 2bp
   \belowdisplayskip=\abovedisplayskip
   \belowdisplayshortskip=\abovedisplayshortskip}
+
 \AtBeginDvi{\special{papersize=\the\paperwidth,\the\paperheight}}
 \AtBeginDvi{\special{!%
       \@percentchar\@percentchar BeginPaperSize: a4
       ^^Ja4^^J\@percentchar\@percentchar EndPaperSize}}
+%长度设置
 \setlength{\textwidth}{\paperwidth}
 \setlength{\textheight}{\paperheight}
 \setlength\marginparwidth{0cm}
@@ -221,10 +229,13 @@
 \setlength{\footskip}{1.5cm}
 \setlength{\headsep}{0.5cm}
 \addtolength{\textheight}{-8.6cm}
+%起始页设置
 \let\tongji@cleardoublepage\cleardoublepage
 \newcommand{\tongji@clearemptydoublepage}{%
   \clearpage{\pagestyle{empty}\tongji@cleardoublepage}}
 \let\cleardoublepage\tongji@clearemptydoublepage
+%自定义
+%定义页眉页脚
 \def\ps@tongji@empty{%
   \let\@oddhead\@empty%
   \let\@evenhead\@empty%
@@ -235,19 +246,53 @@
   \let\@evenhead\@empty%
   \def\@oddfoot{\hfil\wuhao\thepage\hfil}%
   \let\@evenfoot=\@oddfoot}
-% tongji@headings
 \def\ps@tongji@headings{%
   \def\@oddhead{\vbox to\headheight{%
       \hb@xt@\textwidth{\hfill\wuhao\song\leftmark}%
       \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
   \def\@evenhead{\vbox to\headheight{%
       \hb@xt@\textwidth{\wuhao\song%
-      同济大学硕士学位论文\hfill}%
+      同济大学\ \,硕士学位论文\ \,电容式离子电流检测电路的离子电流工况拓展\hfill}%
+      \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
+  \def\@oddfoot{\hfil\wuhao\thepage\hfil}
+  \let\@evenfoot=\@oddfoot}
+%英文摘要页面设置
+\def\ps@tongji@enabheadings{%
+  \def\@oddhead{\vbox to\headheight{%
+      \hb@xt@\textwidth{\hfill\wuhao\song Tongji University Master of Engineering Abstract}%
+      \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
+  \def\@evenhead{\vbox to\headheight{%
+      \hb@xt@\textwidth{\wuhao\song%
+      Tongji University Master of Engineering Abstract\hfill}%
+      \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
+  \def\@oddfoot{\hfil\wuhao\thepage\hfil}
+  \let\@evenfoot=\@oddfoot}
+%中文摘要页面设置
+\def\ps@tongji@cnabheadings{%
+  \def\@oddhead{\vbox to\headheight{%
+      \hb@xt@\textwidth{\hfill\wuhao\song 同济大学\ \,硕士学位论文\ \,摘要}%
+      \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
+  \def\@evenhead{\vbox to\headheight{%
+      \hb@xt@\textwidth{\wuhao\song%
+      同济大学\ \,硕士学位论文\ \,摘要\hfill}%
+      \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
+  \def\@oddfoot{\hfil\wuhao\thepage\hfil}
+  \let\@evenfoot=\@oddfoot}
+%页眉页脚设置
+\gdef\tongji@lmk{你好}
+ \def\ps@tongji@otherheadings{%
+  \def\@oddhead{\vbox to\headheight{%
+      \hb@xt@\textwidth{\hfill\wuhao\song 同济大学\ \,硕士学位论文\ \,\tongji@lmk}%
+      \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
+  \def\@evenhead{\vbox to\headheight{%
+      \hb@xt@\textwidth{\wuhao\song%
+      同济大学\ \,硕士学位论文\ \,\tongji@lmk\hfill}%
       \vskip 2pt\hbox{\vrule width\textwidth height 0.4pt depth 0pt}}}
   \def\@oddfoot{\hfil\wuhao\thepage\hfil}
   \let\@evenfoot=\@oddfoot}
 % chaptermark
 \renewcommand{\chaptermark}[1]{\@mkboth{\@chapapp\  ~~#1}{}}
+%首行空两格
 \newlength\CJK@twochars
 \ifxetex
   \def\CJK@spaceChar{\hspace{1em}}
@@ -263,6 +308,7 @@
   \settowidth\CJK@twochars{\CJK@spaceChar\CJK@spaceChar}%
   \parindent\CJK@twochars}
 \setlength{\parskip}{0pt \@plus2pt \@minus0pt}
+
 \def\tongji@item@space{%
   \let\itemize\compactitem
   \let\enditemize\endcompactitem
@@ -329,21 +375,23 @@
 \DeclareCaptionLabelSeparator{tongji}{\hspace{1em}}
 \DeclareCaptionFont{tongji}{\song\wuhao[1]}
 \captionsetup{labelformat=tongji,labelsep=tongji,font=tongji}
-\captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=6bp}
+\captionsetup[table]{position=top,belowskip={6bp-\intextsep},aboveskip=6bp}
 \captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=6bp}
 \captionsetup[subfloat]{labelformat=simple,font=tongji,captionskip=6bp,nearskip=6bp,farskip=0bp,topadjust=0bp}
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
+
 \let\tongji@LT@array\LT@array
 \def\LT@array{\dawu[1.5]\tongji@LT@array} % set default font size
 \def\hlinewd#1{%
   \noalign{\ifnum0=`}\fi\hrule \@height #1 \futurelet
     \reserved@a\@xhline}
+
 \iftongji@arialtitle
   \def\tongji@title@font{\sffamily}
 \fi
+%定义章节
 \renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi\phantomsection%
-                    \thispagestyle{tongji@headings}%
                     \global\@topnum\z@%
                     \@afterindenttrue%
                     \secdef\@chapter\@schapter}
@@ -387,16 +435,19 @@
    \vskip 24bp}}
 %
 \newcounter{tongji@bookmark}
-%tongji@chapter
+%tongji@chapter不同的@数量对应不同数量的参数
 \def\tongji@chapter*{%
   \@ifnextchar [ % ]
     {\tongji@@chapter}
     {\tongji@@chapter@}}
+	
 \def\tongji@@chapter@#1{\tongji@@chapter[#1]{#1}}
+
 \def\tongji@@chapter[#1]#2{%
   \@ifnextchar [ % ]
     {\tongji@@@chapter[#1]{#2}}
     {\tongji@@@chapter[#1]{#2}[]}}
+	
 \def\tongji@@@chapter[#1]#2[#3]{%
   \if@openright\cleardoublepage\else\clearpage\fi
   \phantomsection
@@ -414,16 +465,17 @@
   \else
     \@mkboth{#3}{#3}
   \fi}
+  
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                      {-24bp\@plus -1ex \@minus -.2ex}%
                      {6bp \@plus .2ex}%
                      {\hei\csname tongji@title@font\endcsname\sihao[1.429]}}
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                        {-16bp\@plus -1ex \@minus -.2ex}%
+                        {-12bp\@plus -1ex \@minus -.2ex}%
                         {6bp \@plus .2ex}%
                         {\hei\csname tongji@title@font\endcsname\banxiaosi[1.538]}}
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                           {-16bp\@plus -1ex \@minus -.2ex}%
+                           {-12bp\@plus -1ex \@minus -.2ex}%
                            {6bp \@plus .2ex}%
                            {\hei\csname tongji@title@font\endcsname\xiaosi[1.667]}}
 \setcounter{secnumdepth}{3}
@@ -432,7 +484,10 @@
 \else
   \setcounter{tocdepth}{3}
 \fi
+%增加目录页
 \renewcommand\tableofcontents{%
+\gdef\tongji@lmk{目录}
+\pagestyle{tongji@otherheadings}
   \tongji@chapter*[]{\lcontentsname}[\contentsname]
   \xiaosi[1.5]\@starttoc{toc}\normalsize}
 \iftongji@arialtoc
@@ -475,6 +530,7 @@
 \renewcommand*\l@section{\@dottedtocline{1}{1.2em}{2.1em}}
 \renewcommand*\l@subsection{\@dottedtocline{2}{2em}{3em}}
 \renewcommand*\l@subsubsection{\@dottedtocline{3}{3.5em}{3.8em}}
+%定义字符串的函数
 \def\tongji@define@term#1{
   \expandafter\gdef\csname #1\endcsname##1{%
     \expandafter\gdef\csname tongji@#1\endcsname{##1}}
@@ -526,6 +582,7 @@
 \newenvironment{cabstract}{\collect@body\tongji@@cabstract}{}
 \newcommand{\tongji@@eabstract}[1]{\long\gdef\tongji@eabstract{#1}}
 \newenvironment{eabstract}{\collect@body\tongji@@eabstract}{}
+%定义关键字
 \def\tongji@parse@keywords#1{
   \expandafter\gdef\csname tongji@#1\endcsname{} % todo: need or not?
   \expandafter\gdef\csname #1\endcsname##1{
@@ -537,6 +594,7 @@
         \expandafter\csname tongji@#1\expandafter\endcsname\expandafter{\reserved@a}}}}
 \tongji@parse@keywords{ckeywords}
 \tongji@parse@keywords{ekeywords}
+%中文封面制作
 \newlength{\tongji@title@width}
 \def\tongji@put@title#1{\makebox{\hb@xt@ \tongji@title@width{#1}}}
 \newcommand{\tongji@first@titlepage}{
@@ -544,13 +602,12 @@
     \vspace*{0.4cm}
     \parbox[b][1.8cm][t]{\textwidth}{%
       \hspace*{11.2cm}\iftongji@secret{\sanhao\tongji@secret@title}\else\rule{1cm}{0cm}\fi\\[0.1cm]
-      \centering{\includegraphics[scale=0.9]{tongji-whole-logo.png}}}
+      \centering{\includegraphics[width=10cm]{tongji-whole-logo-2.eps}}}
       \vskip 0.4cm% 这里添加距离 张泽
           \parbox[t][9cm][t]{\paperwidth-10cm}{
       \renewcommand{\baselinestretch}{1}
       \begin{center}
             \erhao[1]{\li{\tongji@capply\par\sihao{\li{(专业学位)}}}}\par\vskip 1cm % 适当减小这个距离 origianl:1.4cm
-			%\sihao[2]{\li{(专业学位)}}\par\vskip 28pt
             \erhao[2]\textbf{\hei\tongji@ctitle}\par\vskip 17pt % 17pt
      \ifx\cfunds\@empty\else
             \xiaosi{\tongji@cfunds}
@@ -584,13 +641,13 @@
        {\sanhao \song \tongji@cdate}
      \end{center}
     \end{center}} % end of titlepage
-
+%英文封面制作
 \newcommand{\engcover}{%
 \begin{center}
     \vspace*{0.4cm}
     \parbox[b][1.8cm][t]{\textwidth}{%
       \hspace*{11.2cm}\iftongji@secret{\sanhao\tongji@secret@title}\else\rule{1cm}{0cm}\fi\\[-0.1cm]
-      \centering{\includegraphics[scale=0.9]{tongji-whole-logo.png}}}
+      \centering{\includegraphics[width=10cm]{tongji-whole-logo-2.eps}}}
       \vskip 0.4cm% 这里添加距离 张泽
     \parbox[t][9cm][t]{\paperwidth-6cm}{
       \renewcommand{\baselinestretch}{1}
@@ -647,7 +704,7 @@
       \hspace*{5.5cm}\tongji@authorsig\relax\hspace*{1cm}\\[3pt]
       \hspace*{9.5cm}\tongji@date\relax\hspace*{1cm}
     \endgroup}
-
+%添加封面命令，目录之前的页码
 \newcommand{\makecover}{
   \phantomsection
   \pdfbookmark[-1]{\tongji@ctitle}{ctitle}
@@ -661,23 +718,31 @@
   \normalsize
   \tongji@makeabstract
   \let\@tabular\tongji@tabular}
+%中英文摘要页面
 \newcommand{\tongji@makeabstract}{%
   \cleardoublepage % always openright for Abstract
   \tongji@chapter*[]{\cabstractname} % no tocline
-  \pagestyle{tongji@headings}  
+  \thispagestyle{tongji@cnabheadings}
   \pagenumbering{Roman}
   \tongji@cabstract
   \vskip12bp
   \setbox0=\hbox{{\hei\tongji@ckeywords@title}}
   \noindent\hangindent\wd0\hangafter1
     \box0\tongji@ckeywords
+  %英文摘要页面
   \tongji@chapter*[]{\eabstractname} % no tocline
+  \thispagestyle{tongji@enabheadings}
   \tongji@eabstract
   \vskip12bp
   \setbox0=\hbox{\textbf{Key words:\enskip}}
   \noindent\hangindent\wd0\hangafter1
     \box0\tongji@ekeywords}
+
+%符号对照表
 \newenvironment{denotation}[1][2.5cm]{
+	\cleardoublepage
+	\gdef\tongji@lmk{符号说明}
+	\thispagestyle{tongji@otherheadings}
   \tongji@chapter*[]{\tongji@denotation@name} % no tocline
   \noindent\begin{list}{}%
     {\vskip-30bp\xiaosi[1.6]
@@ -692,31 +757,32 @@
     \setlength{\listparindent}{0cm} % 段落缩进量
     \setlength{\topsep}{0pt} % 标签与上文的间距
    }}{\end{list}}
-\newenvironment{ack}{%
-     % \cleardoublepage
-    \tongji@chapter*[\tongji@acklongname]{\tongji@ackname}[\tongji@acklongname]
-  }
   
 \def\tongji@starttoc#1{% #1: float type, prepend type name in \listof*** entry.
   \let\oldnumberline\numberline
   \def\numberline##1{\oldnumberline{\csname #1name\endcsname\hskip.4em ##1}}
   \@starttoc{\csname ext@#1\endcsname}
   \let\numberline\oldnumberline}
+  
 \def\tongji@listof#1{% #1: float type
   \@ifstar
     {\tongji@chapter*[]{\csname list#1name\endcsname}\tongji@starttoc{#1}}
     {\tongji@chapter*{\csname list#1name\endcsname}\tongji@starttoc{#1}}}
+	
 \renewcommand\listoffigures{\tongji@listof{figure}}
 \renewcommand*\l@figure{\@dottedtocline{1}{0em}{4em}}
 \renewcommand\listoftables{\tongji@listof{table}}
 \let\l@table\l@figure
+
 \def\ext@equation{loe}
 \def\equcaption#1{%
   \addcontentsline{\ext@equation}{equation}%
                   {\protect\numberline{#1}}}
+				  
 \newcommand\listofequations{\tongji@listof{equation}}
 \let\l@equation\l@figure
 \bibpunct{[}{]}{,}{s}{}{,}
+
 \renewcommand\NAT@citesuper[3]{\ifNAT@swa%
   \unskip\kern\p@\textsuperscript{\NAT@@open #1\NAT@@close}%
   \if*#3*\else\ (#3)\fi\else #1\fi\endgroup}
@@ -725,8 +791,19 @@
 \def\tongjidot{\unskip.}
 \def\tongjimasterbib{\iftongji@doctor [M]\else [Master Thesis]\fi}
 \def\tongjiphdbib{\iftongji@doctor [D]\else [Doctor Thesis]\fi}
+
+%感谢
+\newenvironment{ack}{%
+    \cleardoublepage
+	\gdef\tongji@lmk{致谢}
+    \tongji@chapter*[\tongji@acklongname]{\tongji@ackname}[\tongji@acklongname]
+  }
+
+%参考文献
 \renewenvironment{thebibliography}[1]{%
-   \tongji@chapter*{\bibname}%
+	\cleardoublepage
+	\gdef\tongji@lmk{\bibname}
+	\tongji@chapter*{\bibname}%
    \wuhao[1.5]
    \list{\@biblabel{\@arabic\c@enumiv}}%
         {\renewcommand{\makelabel}[1]{##1\hfill}
@@ -748,14 +825,21 @@
      {\@latex@warning{Empty `thebibliography' environment}}%
     \endlist\frenchspacing}
 \let\tongji@appendix\appendix
+
+%附录
 \renewenvironment{appendix}{%
+	\cleardoublepage
+	\gdef\tongji@lmk{\appendixname}
   \tongji@appendix
   \gdef\@chapapp{\appendixname~\thechapter}
   }{}
+ 
+%个人简介
 \newenvironment{resume}{%
-  % \cleardoublepage
+   \cleardoublepage
+   \gdef\tongji@lmk{\tongji@resume@title}
   \tongji@chapter*{\tongji@resume@title}}{}
-\newcommand{\resumeitem}[1]{\vspace{2.5em}{\sihao\hei\centerline{#1}}\par}
+\newcommand{\resumeitem}[1]{\vspace{2.5em}{\sihao\hei\centerline{#1}}\hfill\par}
 \iffalse
 \newcommand{\bs}{\symbol{'134}}%Print backslash
 \newcommand{\cih}[1]{%
@@ -782,6 +866,7 @@
     \lccode`\~=\count@
     \catcode\count@=\active
     \lowercase{\def~{\kern1ex}}}}
+%格式文档最后
 \AtEndOfClass{\ifxetex\else\tongji@active@cjk\fi\input{tongjithesis.cfg}}
 \def\tongji@fixselectfont{%
   \ifx\@EverySelectfont@EveryHook\@undefined\else% everysel package is loaded
