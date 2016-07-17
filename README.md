@@ -1,7 +1,5 @@
-硕士毕业论文
+Master Thesis
 
-编码方式             utf8
-
-使用客户端            Notepad++
-
-Tex发行包            Tex Live 2015
+* encoding format :utf8
+* editor: Notepad++
+* texlive version: Tex Live 2015
