@@ -11,4 +11,6 @@
 *.swp
 *.py
 thirdparty/tdmdll/samples/*
-code/out/*
+code/bin/*
+*.tdms
+*.tdms_index
