@@ -6,7 +6,6 @@ void ddcChk::operator()(const int &ddcError) const {
 	}else{
 	//	std::cout<<"Check Pass!"<<std::endl;
 	}
-
 }
 
 ion::~ion(){
@@ -19,18 +18,27 @@ ion::ion(const char* p, const char* t):pepath(p),tdmspath(t){
 	//Open TDMS file
 	errorChk(DDC_OpenFileEx(t,DDC_FILE_TYPE_TDM_STREAMING,1,&file));
 
-	//Acquire tdmsAttr
-	errorChk(DDC_GetNumFileProperties(file,&ta.numberOfProperties));
-	errorChk(DDC_GetFilePropertyNames(file,ta.propertyNames,ta.numberOfProperties));
+	//Check which channel is ion	
+#ifdef DEBUG
+	errorChk(DDC_GetNumChannelGroups(file,&numOfChannelGroups));
+	DDCChannelGroupHandle* cghtemp=(DDCChannelGroupHandle*)malloc(sizeof(DDCChannelGroupHandle)*(numOfChannelGroups+1));
+	errorChk(DDC_GetChannelGroups(file,&cghtemp,numOfChannelGroups));	
 
-//	std::cout<<ta.numberOfProperties<<std::endl;
-	DDCDataType temp;
-	for(unsigned int i=1;i<=ta.numberOfProperties;i++){
-		//std::cout<<"Loop:"<<i<<std::endl;
-		errorChk(DDC_GetFilePropertyType(file,*(ta.propertyNames+i-1),&temp));
-		ta.propertyDataType.push_back(temp);
+	for(size_t i=1;i<=numOfChannelGroups;i++){
+		std::cout<<"Channel Groups : "<<i<<std::endl;
+		unsigned int numOfChannels;
+		errorChk(DDC_GetNumChannels(cghtemp[i-1],&numOfChannels));
+		DDCChannelHandle* chtemp = (DDCChannelHandle*)malloc(sizeof(DDCChannelHandle)*(numOfChannels+1)); 	
+		errorChk(DDC_GetChannels(cghtemp[i-1],&chtemp,numOfChannels));
+
+		for(size_t j=1;j<=numOfChannels;j++){
+			unsigned int numOfProperties;
+			errorChk(DDC_GetNumChannelProperties(chtemp,&numOfProperties));
+			std::cout<<"		"<<j<<std::endl;
+		}
 	}
-
+	free(cghtemp);
+#endif //DEBUG
 
 	//Determine number of cycles of TDMS file
 	numOfCycle=0;//TODO LIST

@@ -12,22 +12,18 @@ private:
 	char sep;
 };
 
-struct tdmsAttr{
-	unsigned int numberOfProperties;
-	char **propertyNames;//Property Names in TDMS file 
-	std::vector<DDCDataType> propertyDataType;
-};
-
 //Initial Processing of TDMS file and PE file, PE for photoelectric encoder.
 class ion{
 public:
 	ion(const char* p, const char* t);
 	ion(const ion&i)=delete;
 	~ion();
+
 protected:
 	DDCFileHandle file;
+	unsigned int numOfChannelGroups;
 	unsigned int numOfCycle;
-	tdmsAttr ta;
+
 private:
 	const char* pepath;
 	const char* tdmspath;
@@ -48,3 +44,4 @@ public:
 private:
 	unsigned int numCycle;
 };
+
