@@ -2,6 +2,16 @@
 #include<nilibddc.h>
 #include<vector>
 
+//functor to display ddcError text
+class  ddcChk{
+public:
+	ddcChk(std::ostream &o = std::cout, char c =' '):os(o),sep(c){}
+	void operator()(const int& ddcError) const;
+private:
+	std::ostream &os;
+	char sep;
+};
+
 struct tdmsAttr{
 	unsigned int numberOfProperties;
 	char **propertyNames;//Property Names in TDMS file 
@@ -21,7 +31,6 @@ protected:
 private:
 	const char* pepath;
 	const char* tdmspath;
-	int ddcError;
 };
 
 std::ostream& operator<< (std::ostream& os, const ion& i);//Output all properties in format
