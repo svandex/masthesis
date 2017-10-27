@@ -8,3 +8,7 @@
 *.blg
 *.thm
 *.pdf
+*.swp
+*.py
+thirdparty/tdmdll/samples/*
+code/out/*
