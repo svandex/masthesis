@@ -23,6 +23,8 @@ protected:
 	DDCFileHandle file;
 	unsigned int numOfChannelGroups;
 	unsigned int numOfCycle;
+	template <unsigned M, unsigned N>
+		decltype(auto) getHandle(const unsigned int& M, const unsigned int& N);
 
 private:
 	const char* pepath;
