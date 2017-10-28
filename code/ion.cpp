@@ -18,8 +18,13 @@ ion::ion(const char* p, const char* t):pepath(p),tdmspath(t){
 	//Open TDMS file
 	errorChk(DDC_OpenFileEx(t,DDC_FILE_TYPE_TDM_STREAMING,1,&file));
 
-	//Check which channel is ion	
-#ifdef DEBUG
+	//Determine number of cycles of TDMS file
+	numOfCycle=0;//TODO LIST
+}
+
+//Show All channel properties
+void ion::showProperty(){
+	ddcChk errorChk;
 	errorChk(DDC_GetNumChannelGroups(file,&numOfChannelGroups));
 	DDCChannelGroupHandle* cghtemp=(DDCChannelGroupHandle*)calloc(numOfChannelGroups,sizeof(DDCChannelGroupHandle));
 	errorChk(DDC_GetChannelGroups(file,cghtemp,numOfChannelGroups));	
@@ -46,12 +51,30 @@ ion::ion(const char* p, const char* t):pepath(p),tdmspath(t){
 			free(property);
 		}
 	}
-#endif //DEBUG
-
-	//Determine number of cycles of TDMS file
-	numOfCycle=0;//TODO LIST
-
-	//std::cout<<"Ion Initialization Success."<<std::endl;
 }
 
+template<unsigned M, unsigned N>
+decltype(auto) ion::getHandle(const unsigned int& M,const unsigned int& N){
+	if(M==0){
+		std::cerr<<"getHandle error: M cannot be 0.";
+		return nullptr;
+	}
 
+	ddcChk errorChk;
+	errorChk(DDC_GetNumChannelGroups(file,&numOfChannelGroups));	
+	if(M>numOfChannelGroups){std::cerr<<"getHandle error: M exceeds channel groups number";return nullptr;}
+	DDCChannelGroupHandle* cghtemp=(DDCChannelGroupHandle*)calloc(numOfChannelGroups,sizeof(DDCChannelGroupHandle));
+	errorChk(DDC_GetChannelGroups(file,cghtemp,numOfChannelGroups));	
+	if(N==0){
+		return cghtemp[M];
+	}else{
+		unsigned int numOfChannels;
+		errorChk(DDC_GetNumChannels(cghtemp[M],&numOfChannels));	
+		if(N>numOfChannelGroups){std::cerr<<"getHandle error: N exceeds channels number";return nullptr;}
+		DDCChannelHandle* chtemp = (DDCChannelHandle* )calloc(numOfChannels,sizeof(DDCChannelHandle));
+		errorChk(DDC_GetChannels(cghtemp[M],chtemp,numOfChannels));
+		return chtemp[N];
+	}
+
+
+}
