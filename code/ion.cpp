@@ -16,24 +16,24 @@ ion::~ion(){
 ion::ion(const char* p, const char* t):pepath(p),tdmspath(t){
 	ddcChk errorChk(std::cerr);
 	//Open TDMS file
-	errorChk(DDC_OpenFileEx(t,DDC_FILE_TYPE_TDM_STREAMING,1,&file));
+	errorChk(DDC_OpenFileEx(tdmspath,DDC_FILE_TYPE_TDM_STREAMING,1,&file));
+	errorChk(DDC_GetNumChannelGroups(file,&numOfChannelGroups));
 
 	//Determine number of cycles of TDMS file
 	numOfCycle=0;//TODO LIST
 }
 
 //Show All channel properties
-void ion::showProperty(){
+void ion::showProperty() const{
 	ddcChk errorChk;
-	errorChk(DDC_GetNumChannelGroups(file,&numOfChannelGroups));
 	DDCChannelGroupHandle* cghtemp=(DDCChannelGroupHandle*)calloc(numOfChannelGroups,sizeof(DDCChannelGroupHandle));
-	errorChk(DDC_GetChannelGroups(file,cghtemp,numOfChannelGroups));	
-
+	if(cghtemp == nullptr){std::cerr<<"DDCChannelGroupHandle allocation failed! "<<std::endl;return;}
 	for(size_t i=1;i<=numOfChannelGroups;i++){
 		std::cout<<"Channel Groups : "<<i<<std::endl;
 		unsigned int numOfChannels;
 		errorChk(DDC_GetNumChannels(cghtemp[i-1],&numOfChannels));
 		DDCChannelHandle* chtemp = (DDCChannelHandle* )calloc(numOfChannels,sizeof(DDCChannelHandle));
+	if(chtemp == nullptr){std::cerr<<"DDCChannelHandle allocation failed! "<<std::endl;return;}
 		errorChk(DDC_GetChannels(cghtemp[i-1],chtemp,numOfChannels));
 
 		for(size_t j=1;j<=numOfChannels;j++){
@@ -54,14 +54,13 @@ void ion::showProperty(){
 }
 
 template<unsigned M, unsigned N>
-decltype(auto) ion::getHandle(const unsigned int& M,const unsigned int& N){
+decltype(auto) ion::getHandle(){
 	if(M==0){
 		std::cerr<<"getHandle error: M cannot be 0.";
 		return nullptr;
 	}
 
 	ddcChk errorChk;
-	errorChk(DDC_GetNumChannelGroups(file,&numOfChannelGroups));	
 	if(M>numOfChannelGroups){std::cerr<<"getHandle error: M exceeds channel groups number";return nullptr;}
 	DDCChannelGroupHandle* cghtemp=(DDCChannelGroupHandle*)calloc(numOfChannelGroups,sizeof(DDCChannelGroupHandle));
 	errorChk(DDC_GetChannelGroups(file,cghtemp,numOfChannelGroups));	
