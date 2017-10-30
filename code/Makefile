@@ -1,8 +1,8 @@
 OUTDIR=.\bin
-CLFLAGS=/Zi /nologo /EHsc /c /I. /I..\thirdparty\tdmdll\dev\include 
+CLFLAGS=/Zi /nologo /EHsc /c /I. /I..\thirdparty\tdmdll\dev\include /std:c++14
 
 !IFDEF DEBUG
-CLFLAGS=/Zi /nologo /EHsc /c /I. /I..\thirdparty\tdmdll\dev\include /DDEBUG
+CLFLAGS=/Zi /nologo /EHsc /c /I. /I..\thirdparty\tdmdll\dev\include /DDEBUG /std:c++14
 !ENDIF
 
 all : $(OUTDIR) $(OUTDIR)\ion.exe
