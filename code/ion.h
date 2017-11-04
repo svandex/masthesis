@@ -20,34 +20,8 @@ public:
 	friend std::ostream& operator<< (std::ostream& os, const ion& i);//Output all properties of one channel
 
 //protected:
-//
-//channel group handle or channel handle, for data aquisition
-	template<unsigned int M, unsigned int N>
-	decltype(auto) getHandle(){
-		if(M==0){
-			std::cerr<<"getHandle error: M cannot be 0.";
-			return nullptr;
-		}
-
-		ddcChk errorChk;
-		if(M>numOfChannelGroups){std::cerr<<"getHandle error: M exceeds channel groups number";return nullptr;}
-		DDCChannelGroupHandle* cghtemp=(DDCChannelGroupHandle*)std::calloc(numOfChannelGroups,sizeof(DDCChannelGroupHandle));
-		errorChk(DDC_GetChannelGroups(file,cghtemp,numOfChannelGroups));	
-		if(N==0){
-			return (cghtemp[M]);
-		}else{
-			unsigned int numOfChannels;
-			errorChk(DDC_GetNumChannels(cghtemp[M],&numOfChannels));	
-			if(N>numOfChannelGroups){std::cerr<<"getHandle error: N exceeds channels number";return nullptr;}
-			DDCChannelHandle* chtemp = (DDCChannelHandle* )std::calloc(numOfChannels,sizeof(DDCChannelHandle));
-			errorChk(DDC_GetChannels(cghtemp[M],chtemp,numOfChannels));
-			return (chtemp[N]);
-		}
-	}
-
-//specialization of getHandle<>()
-
-//ending of specialization
+	DDCChannelGroupHandle getCGH(const unsigned int &cg) const;
+	DDCChannelHandle getCH(const unsigned int &cgh, const unsigned int &ch) const;
 
 	unsigned int split(std::pair<unsigned int, unsigned int> *p) const;
 	//Use A-signal and Z-signal to determine, make sure the method has enough epsilong
