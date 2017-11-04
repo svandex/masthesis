@@ -27,50 +27,26 @@ ion::ion(const char* pe, const char* ionT):pepath(pe),ionTpath(ionT){
 	numOfCycle=0;//TO DO LIST
 }
 
-//Show All channel properties
-std::ostream& operator<< (std::ostream &os, const ion& ionT){
+DDCChannelGroupHandle ion::getCGH(const unsigned int &cg) const{
+	if(cg==0||cg>numOfChannelGroups){std::cerr<<"getChannelGroupHandle error: cg is not in the correct range. numOfChannelGroups is "<<numOfChannelGroups<<std::endl;return nullptr;}
 	ddcChk errorChk;
-	DDCChannelGroupHandle* cghtemp=(DDCChannelGroupHandle*)std::calloc(ionT.numOfChannelGroups,sizeof(DDCChannelGroupHandle));
-	if(cghtemp == nullptr){std::cerr<<"DDCChannelGroupHandle allocation failed! "<<std::endl;return os;}
-	errorChk(DDC_GetChannelGroups(ionT.file,cghtemp,ionT.numOfChannelGroups));
-
-	unsigned int numOfChannels;
-	//in each channel group
-	for(std::size_t i=1;i<=ionT.numOfChannelGroups;i++){
-		os<<"Channel Groups : "<<i<<std::endl;
-		errorChk(DDC_GetNumChannels(*(cghtemp+i-1),&numOfChannels));
-		DDCChannelHandle* chtemp = (DDCChannelHandle* )std::calloc(numOfChannels,sizeof(DDCChannelHandle));
-	if(chtemp == nullptr){std::cerr<<"DDCChannelHandle allocation failed! "<<std::endl;return os;}
-		errorChk(DDC_GetChannels(*(cghtemp+i-1),chtemp,numOfChannels));
-
-#ifdef DEBUG
-		std::cout<<"cghtemp is "<<cghtemp<<", typeinfo of cghtemp is "<<typeid(cghtemp).name()<<std::endl;
-		std::cout<<"typeinfo of *cghtemp is "<<typeid(*cghtemp).name()<<std::endl;
-		std::cout<<"DDCChannelGroupHandle typeinfo is "<<typeid(DDCChannelGroupHandle).name()<<std::endl;
-		std::cout<<"Line 40, numofCHannel is "<<numOfChannels<<std::endl;
-#endif //DEBUG
-
-		//each channel
-		for(std::size_t j=1;j<=numOfChannels;j++){
-			os<<"	Channel : "<<j<<std::endl;
-			unsigned int numOfProperties;
-			errorChk(DDC_GetNumChannelProperties(*(chtemp+j-1),&numOfProperties));
-			char* property=0;
-			unsigned int length;
-			std::string property_s;
-
-			errorChk(DDC_GetChannelStringPropertyLength(*(chtemp+j-1),DDC_CHANNEL_NAME,&length));
-
-			property = (char*)malloc(length+1);
-			errorChk(DDC_GetChannelProperty(chtemp[j-1],DDC_CHANNEL_NAME,property,length+1));
-			errorChk(DDC_GetChannelProperty(chtemp[j-1],DDC_CHANNEL_NAME,&property_s,0));
-
-			os<<"		Property: "<<property<<std::endl;
-			free(property);
-		}
-		std::free(chtemp);
-	}
-	std::free(cghtemp);
-	return os;
+	DDCChannelGroupHandle* cghtemp=(DDCChannelGroupHandle*)std::calloc(numOfChannelGroups,sizeof(DDCChannelGroupHandle));
+	errorChk(DDC_GetChannelGroups(file,cghtemp,numOfChannelGroups));	
+	DDCChannelGroupHandle temp=cghtemp[cg-1];
+	free(cghtemp);
+	return temp;
 }
 
+DDCChannelHandle ion::getCH(const unsigned int &cgh, const unsigned int &ch) const{
+	ddcChk errorChk;
+	DDCChannelGroupHandle cghtemp=getCGH(cgh);	
+	unsigned int numOfChannels;
+	errorChk(DDC_GetNumChannels(cghtemp,&numOfChannels));	
+
+	if(ch==0||ch>numOfChannels){std::cerr<<"getChannelHandle error: ch is not in the correct range. numOfChannel is "<<numOfChannels<<std::endl;return nullptr;}
+	DDCChannelHandle* chtemp = (DDCChannelHandle* )std::calloc(numOfChannels,sizeof(DDCChannelHandle));
+	errorChk(DDC_GetChannels(cghtemp,chtemp,numOfChannels));
+	DDCChannelHandle temp = chtemp[ch-1];
+	free(chtemp);
+	return temp;
+}
